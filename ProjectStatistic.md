@@ -1,0 +1,5 @@
+# Project statistic provided by ohloh #
+
+| &lt;wiki:gadget url="http://www.ohloh.net/p/446320/widgets/project\_languages.xml" width="350" height="180" border="0" /&gt; | &lt;wiki:gadget url="http://www.ohloh.net/p/446320/widgets/project\_factoids.xml" width="350" height="180" border="0" /&gt; |
+|:-----------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| &lt;wiki:gadget url="http://www.ohloh.net/p/446320/widgets/project\_cocomo.xml" width="350" height="240"  border="0" /&gt;   | &lt;wiki:gadget url="http://www.ohloh.net/p/446320/widgets/project\_basic\_stats.xml" with="350" height="240" border="0"/&gt; |
