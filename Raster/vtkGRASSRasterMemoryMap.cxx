@@ -17,7 +17,6 @@
 #include "vtkGRASSRasterRow.h"
 #include <vtkObjectFactory.h>
 
-vtkCxxRevisionMacro(vtkGRASSRasterMemoryMap, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterMemoryMap);
 
 //----------------------------------------------------------------------------
@@ -47,13 +46,13 @@ vtkGRASSRasterMemoryMap::PrintSelf(ostream& os, vtkIndent indent)
 {
     this->Superclass::PrintSelf(os, indent);
 
-	os << indent << "Allocated   : " << (this->Allocated ? "YES" : "NO") << endl;
-	os << indent << "CELLBuff : " << this->CELLBuff << endl;
-	os << indent << "FCELLBuff : " << this->FCELLBuff << endl;
-	os << indent << "DCELLBuff : " << this->DCELLBuff << endl;
-	os << indent << "Cols   : " << this->NumberOfCols << endl;
-	os << indent << "Rows   : " << this->NumberOfRows << endl;
-	os << indent << "MapType: " << this->MapType << endl;
+    os << indent << "Allocated   : " << (this->Allocated ? "YES" : "NO") << endl;
+    os << indent << "CELLBuff : " << this->CELLBuff << endl;
+    os << indent << "FCELLBuff : " << this->FCELLBuff << endl;
+    os << indent << "DCELLBuff : " << this->DCELLBuff << endl;
+    os << indent << "Cols   : " << this->NumberOfCols << endl;
+    os << indent << "Rows   : " << this->NumberOfRows << endl;
+    os << indent << "MapType: " << this->MapType << endl;
 
     return;
 }
@@ -62,20 +61,20 @@ vtkGRASSRasterMemoryMap::PrintSelf(ostream& os, vtkIndent indent)
 
 void vtkGRASSRasterMemoryMap::Reset()
 {
-	if(this->Allocated) {
-		TRY
-		if(this->CELLBuff) {
-			G_free(this->CELLBuff);
-			this->CELLBuff = NULL;
-		} else if(this->FCELLBuff) {
-			G_free(this->FCELLBuff);
-			this->FCELLBuff = NULL;
-		} if(this->DCELLBuff) {
-			G_free(this->DCELLBuff);
-			this->DCELLBuff = NULL;
-		}
-		CATCH_VOID
-	}
+    if(this->Allocated) {
+        TRY
+        if(this->CELLBuff) {
+            G_free(this->CELLBuff);
+            this->CELLBuff = NULL;
+        } else if(this->FCELLBuff) {
+            G_free(this->FCELLBuff);
+            this->FCELLBuff = NULL;
+        } if(this->DCELLBuff) {
+            G_free(this->DCELLBuff);
+            this->DCELLBuff = NULL;
+        }
+        CATCH_VOID
+    }
 
     this->NumberOfCols = 0;
     this->NumberOfRows = 0;
@@ -202,16 +201,16 @@ void *vtkGRASSRasterMemoryMap::GetBuffer()
 bool vtkGRASSRasterMemoryMap::GetRow(int row, vtkGRASSRasterRow *buff)
 {
     if(this->MapType == CELL_TYPE){
-    	buff->SetBuffer(this->NumberOfCols, this->MapType,
-    			(void *)&(this->CELLBuff[row*this->NumberOfCols]));
+        buff->SetBuffer(this->NumberOfCols, this->MapType,
+                (void *)&(this->CELLBuff[row*this->NumberOfCols]));
         return true;
     } else if(this->MapType == FCELL_TYPE){
-    	buff->SetBuffer(this->NumberOfCols, this->MapType,
-    			(void *)&(this->FCELLBuff[row*this->NumberOfCols]));
+        buff->SetBuffer(this->NumberOfCols, this->MapType,
+                (void *)&(this->FCELLBuff[row*this->NumberOfCols]));
         return true;
     } else if(this->MapType == DCELL_TYPE) {
-    	buff->SetBuffer(this->NumberOfCols, this->MapType,
-    			(void *)&(this->DCELLBuff[row*this->NumberOfCols]));
+        buff->SetBuffer(this->NumberOfCols, this->MapType,
+                (void *)&(this->DCELLBuff[row*this->NumberOfCols]));
         return true;
     }
 
@@ -229,11 +228,11 @@ bool vtkGRASSRasterMemoryMap::GetCELLValue(int row, int col, vtkCELL* value)
         return false;
 
     if(this->MapType == CELL_TYPE)
-    	value->Value = (CELL)this->CELLBuff[row * this->NumberOfCols + col];
+        value->Value = (CELL)this->CELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == DCELL_TYPE)
-    	value->Value = (CELL)this->DCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (CELL)this->DCELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == FCELL_TYPE)
-    	value->Value = (CELL)this->FCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (CELL)this->FCELLBuff[row * this->NumberOfCols + col];
 
     return true;
 }
@@ -249,11 +248,11 @@ bool vtkGRASSRasterMemoryMap::GetFCELLValue(int row, int col, vtkFCELL* value)
         return false;
 
     if(this->MapType == FCELL_TYPE)
-    	value->Value = (FCELL)this->FCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (FCELL)this->FCELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == DCELL_TYPE)
-    	value->Value = (FCELL)this->DCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (FCELL)this->DCELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == CELL_TYPE)
-    	value->Value = (FCELL)this->CELLBuff[row * this->NumberOfCols + col];
+        value->Value = (FCELL)this->CELLBuff[row * this->NumberOfCols + col];
 
 
     return true;
@@ -270,11 +269,11 @@ bool vtkGRASSRasterMemoryMap::GetDCELLValue(int row, int col, vtkDCELL* value)
         return false;
 
     if(this->MapType == DCELL_TYPE)
-    	value->Value = (DCELL)this->DCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (DCELL)this->DCELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == FCELL_TYPE)
-    	value->Value = (DCELL)this->FCELLBuff[row * this->NumberOfCols + col];
+        value->Value = (DCELL)this->FCELLBuff[row * this->NumberOfCols + col];
     else  if(this->MapType == CELL_TYPE)
-    	value->Value = (DCELL)this->CELLBuff[row * this->NumberOfCols + col];
+        value->Value = (DCELL)this->CELLBuff[row * this->NumberOfCols + col];
 
     return true;
 }
@@ -291,11 +290,11 @@ bool vtkGRASSRasterMemoryMap::SetCELLValue(int row, int col, vtkCELL* value)
         return false;
 
     if(this->MapType == CELL_TYPE)
-    	this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
+        this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
     else if(this->MapType == FCELL_TYPE)
-    	this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
+        this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
     else if(this->MapType == DCELL_TYPE)
-    	this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
+        this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
 
     return true;
 }
@@ -311,11 +310,11 @@ bool vtkGRASSRasterMemoryMap::SetFCELLValue(int row, int col, vtkFCELL* value)
         return false;
 
     if(this->MapType == FCELL_TYPE)
-    	this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
+        this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
     else if(this->MapType == DCELL_TYPE)
-    	this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
+        this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
     else if(this->MapType == CELL_TYPE)
-    	this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
+        this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
 
     return true;
 }
@@ -331,11 +330,11 @@ bool vtkGRASSRasterMemoryMap::SetDCELLValue(int row, int col, vtkDCELL* value)
         return false;
 
     if(this->MapType == DCELL_TYPE)
-    	this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
+        this->DCELLBuff[row * this->NumberOfCols + col] = (DCELL)value->Value;
     else if(this->MapType == FCELL_TYPE)
-    	this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
+        this->FCELLBuff[row * this->NumberOfCols + col] = (FCELL)value->Value;
     else if(this->MapType == CELL_TYPE)
-    	this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
+        this->CELLBuff[row * this->NumberOfCols + col] = (CELL)value->Value;
 
     return true;
 }
@@ -378,7 +377,7 @@ bool vtkGRASSRasterMemoryMap::SetToNull(int row, int col)
 
 bool vtkGRASSRasterMemoryMap::SetToNull()
 {
-	int size = this->NumberOfCols * this->NumberOfRows;
+    int size = this->NumberOfCols * this->NumberOfRows;
 
     if(this->Allocated == false)
         return false;
@@ -391,7 +390,7 @@ bool vtkGRASSRasterMemoryMap::SetToNull()
     else if(this->MapType == DCELL_TYPE)
         Rast_set_d_null_value(this->DCELLBuff, size);
     else
-    	return false;
+        return false;
     CATCH_BOOL;
 
     return true;

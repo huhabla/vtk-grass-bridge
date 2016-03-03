@@ -34,7 +34,7 @@
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorMapNoTopoReader : public vtkGRASSVectorMapBase {
 public:
     static vtkGRASSVectorMapNoTopoReader *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorMapNoTopoReader, vtkGRASSVectorMapBase);
+    vtkTypeMacro(vtkGRASSVectorMapNoTopoReader, vtkGRASSVectorMapBase);
 
 
     /*!\brief Open the vector map read only

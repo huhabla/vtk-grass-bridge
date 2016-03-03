@@ -49,7 +49,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSFlag : public vtkObjectGRASSErrorHa
 {
 public:
   static  vtkGRASSFlag *New();
-  vtkTypeRevisionMacro(vtkGRASSFlag,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSFlag,vtkObjectGRASSErrorHandler);
 
   //!\brief Set the key.
   //! This will set the identifier

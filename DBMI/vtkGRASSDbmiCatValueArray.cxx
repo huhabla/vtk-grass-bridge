@@ -19,8 +19,6 @@
 #include <vtkIntArray.h>
 #include <vtkDoubleArray.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSDbmiCatValueArray, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSDbmiCatValueArray);
 
 //----------------------------------------------------------------------------

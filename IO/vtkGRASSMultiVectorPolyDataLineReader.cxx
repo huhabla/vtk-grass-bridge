@@ -38,7 +38,6 @@
 #include <vtkGRASSDbmiColumn.h>
 #include <vtkGRASSDbmiValue.h>
 
-vtkCxxRevisionMacro(vtkGRASSMultiVectorPolyDataLineReader, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSMultiVectorPolyDataLineReader);
 
 //----------------------------------------------------------------------------

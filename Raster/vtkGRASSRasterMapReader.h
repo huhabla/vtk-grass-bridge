@@ -44,7 +44,7 @@ class VTK_GRASS_BRIDGE_RASTER_EXPORT vtkGRASSRasterMapReader : public vtkGRASSRa
 {
 public:
   static  vtkGRASSRasterMapReader *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterMapReader,vtkGRASSRasterMapBase);
+  vtkTypeMacro(vtkGRASSRasterMapReader,vtkGRASSRasterMapBase);
 
   //! \brief Open an existing raster map for reading.
   //! \param name the name of an existing raster map

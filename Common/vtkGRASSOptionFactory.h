@@ -52,7 +52,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSOptionFactory : public vtkObjectGRA
 {
 public:
   static  vtkGRASSOptionFactory *New();
-  vtkTypeRevisionMacro(vtkGRASSOptionFactory,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSOptionFactory,vtkObjectGRASSErrorHandler);
 
   static vtkGRASSOption* CreateInstance(int OptionType);
   static vtkGRASSOption* CreateInstance(int OptionType, const char* key);

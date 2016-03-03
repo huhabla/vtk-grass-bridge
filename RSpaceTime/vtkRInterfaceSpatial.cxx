@@ -28,8 +28,6 @@
 #include <vtkStringArray.h>
 #include <vtkDataSetAttributes.h>
 
-
-vtkCxxRevisionMacro(vtkRInterfaceSpatial, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkRInterfaceSpatial);
 
 //----------------------------------------------------------------------------
@@ -43,19 +41,19 @@ vtkRInterfaceSpatial::vtkRInterfaceSpatial()
 
 //----------------------------------------------------------------------------
 
-vtkStringArray *vtkRInterfaceSpatial::CreateArrayNamesArray(vtkDataSetAttributes *data) 
-{  
-  vtkStringArray *arrayNames = vtkStringArray::New(); 
+vtkStringArray *vtkRInterfaceSpatial::CreateArrayNamesArray(vtkDataSetAttributes *data)
+{
+  vtkStringArray *arrayNames = vtkStringArray::New();
   int i;
-  
+
   arrayNames->Initialize();
   arrayNames->SetNumberOfValues(data->GetNumberOfArrays());
-  
+
   for(i = 0; i < data->GetNumberOfArrays(); i++)
   {
     arrayNames->InsertValue(i, data->GetArray(i)->GetName());
   }
-  
+
   return arrayNames; // Must be deleted in the class which calls this method
 }
 
@@ -66,7 +64,7 @@ bool vtkRInterfaceSpatial::AssignVTKDataSetAttributesToRDataFrame(vtkDataSetAttr
   std::ostringstream arrayNames;
   std::ostringstream script;
   int i;
-    
+
   // Assign the point data arrays as R variables
   for(i = 0; i < arrays->GetNumberOfValues(); i++)
   {
@@ -75,29 +73,29 @@ bool vtkRInterfaceSpatial::AssignVTKDataSetAttributesToRDataFrame(vtkDataSetAttr
       vtkErrorMacro(<< "Unable to find array " << arrays->GetValue(i) << " in data");
       return false;
     }
-    
+
     vtkDataArray *array = data->GetArray(arrays->GetValue(i));
-    
+
     if(i == 0)
       arrayNames << array->GetName();
     else
       arrayNames << "," << array->GetName();
-    
+
     this->AssignVTKDataArrayToRVariable(array, array->GetName());
   }
-    
+
   // We need to create a data frame from all the attached arrays
   script << dataframe << " = data.frame(" << arrayNames.str().c_str() << ")";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
-  
+
+
   // Remove unneeded data
   script.str(""); // Clear the script
   script << "remove(" << arrayNames.str().c_str() << ")";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   return true;
 }
 
@@ -106,7 +104,7 @@ bool vtkRInterfaceSpatial::AssignVTKDataSetAttributesToRDataFrame(vtkDataSetAttr
 bool vtkRInterfaceSpatial::AssignVTKDataSetAttributesToRDataFrame(vtkDataSetAttributes *data, const char *dataframe)
 {
   vtkStringArray *arrayNames = this->CreateArrayNamesArray(data);
-  
+
   return this->AssignVTKDataSetAttributesToRDataFrame(data, dataframe, arrayNames);
 }
 
@@ -115,20 +113,20 @@ bool vtkRInterfaceSpatial::AssignVTKDataSetAttributesToRDataFrame(vtkDataSetAttr
 bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPointsDataFrame(vtkPointSet *data, const char *name)
 {
   vtkStringArray *arrayNames = this->CreateArrayNamesArray(data->GetPointData());
-  
+
   return this->AssignVTKPointSetToRSpatialPointsDataFrame(data, name, arrayNames);
 }
 
 //----------------------------------------------------------------------------
 
 bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPoints(vtkPointSet *data, const char *name)
-{  
+{
   return this->AssignVTKPointSetToRSpatialPointsDataFrame(data, name, NULL);
 }
 
 
 //----------------------------------------------------------------------------
-// We convert points and assigned point data into a R 
+// We convert points and assigned point data into a R
 // SpatialPointsDataFrame from the sp package
 // Use the vtlCellDataToPointData to convert cell data into point data
 //----------------------------------------------------------------------------
@@ -136,35 +134,35 @@ bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPoints(vtkPointSet *data, 
 bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPointsDataFrame(vtkPointSet *data, const char *name, vtkStringArray *arrayNames)
 {
   std::ostringstream script;
-  
-  vtkDataArray *orig_coords = data->GetPoints()->GetData(); 
-  
+
+  vtkDataArray *orig_coords = data->GetPoints()->GetData();
+
   // Attach the point coordiantes
   this->AssignVTKDataArrayToRVariable(orig_coords, orig_coords->GetName());
-    
+
   // Create a dataframe if point data arrays are available
   if(data->GetPointData()->GetNumberOfArrays() > 0 && arrayNames != NULL && arrayNames->GetNumberOfValues() > 0)
   {
     if(this->AssignVTKDataSetAttributesToRDataFrame(data->GetPointData(), "MyTempDataFrame", arrayNames) != true)
       return false;
- 
+
     // Create the SpatialPointsDataFrame
     script << name << " = SpatialPointsDataFrame(" <<orig_coords->GetName()  //<< "[,-3]" // For 2d data only
            << ", MyTempDataFrame)";
   } else {
-    
+
     // Create the SpatialPoints
     script << name << " = SpatialPoints(" << orig_coords->GetName() << ")";
   }
-  
+
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   this->AttachProjection(name);
-  
+
   if(arrayNames)
     arrayNames->Delete();
-  
+
   // Remove unneeded data
   script.str(""); // Clear the script
   if(arrayNames)
@@ -173,7 +171,7 @@ bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPointsDataFrame(vtkPointSe
     script << "remove(" << orig_coords->GetName() <<  ")";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   return true;
 }
 
@@ -182,7 +180,7 @@ bool vtkRInterfaceSpatial::AssignVTKPointSetToRSpatialPointsDataFrame(vtkPointSe
 bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGridDataFrame(vtkImageData *data, const char *name)
 {
   vtkStringArray *arrayNames = this->CreateArrayNamesArray(data->GetPointData());
-  
+
   return this->AssignVTKImageDataToRSpatialGridDataFrame(data, name, arrayNames);
 }
 
@@ -198,7 +196,7 @@ bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGrid(vtkImageData *data, 
 bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGridDataFrame(vtkImageData *data, const char *name, vtkStringArray *arrayNames)
 {
   std::ostringstream script;
-  int dim[3] = {0.0, 0.0, 0.0}; 
+  int dim[3] = {0.0, 0.0, 0.0};
   double origin[3] = {0.0, 0.0, 0.0};
   double spacing[3] = {0.0, 0.0, 0.0};
 
@@ -208,37 +206,37 @@ bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGridDataFrame(vtkImageDat
   data->GetSpacing(spacing);
 
   // Create the GridTopology
-  script << "MyTempGrid = GridTopology(cellcentre.offset = c(" << origin[0] + spacing[0]/2.0 << "," << origin[1] + spacing[1]/ 2.0  << ")"; 
-  script << ", cellsize = c(" << spacing[0] << "," << spacing[1] << ")"; 
+  script << "MyTempGrid = GridTopology(cellcentre.offset = c(" << origin[0] + spacing[0]/2.0 << "," << origin[1] + spacing[1]/ 2.0  << ")";
+  script << ", cellsize = c(" << spacing[0] << "," << spacing[1] << ")";
   script << ", cells.dim = c(" << dim[0] << "," << dim[1] << "))";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-        
+
   // Clear the script for new input
   script.str("");
-  
+
   // Create a dataframe if point data arrays are available
   if(data->GetPointData()->GetNumberOfArrays() > 0 && arrayNames != NULL && arrayNames->GetNumberOfValues() > 0)
   {
     if(this->AssignVTKDataSetAttributesToRDataFrame(data->GetPointData(), "MyTempDataFrame", arrayNames) != true)
       return false;
-    
+
     // Create the SpatialGridDataFrame
     script << name << " = SpatialGridDataFrame(MyTempGrid"  << ", MyTempDataFrame)";
   } else {
-    
+
     // Create the SpatialGrid
     script << name << " = SpatialGrid(MyTempGrid)";
   }
-  
+
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   this->AttachProjection(name);
- 
+
   if(arrayNames)
     arrayNames->Delete();
-  
+
   // Remove unneeded data
   script.str(""); // Clear the script
   if(arrayNames)
@@ -247,7 +245,7 @@ bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGridDataFrame(vtkImageDat
     script << "remove(MyTempGrid)";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   return true;
 }
 
@@ -256,9 +254,9 @@ bool vtkRInterfaceSpatial::AssignVTKImageDataToRSpatialGridDataFrame(vtkImageDat
 void vtkRInterfaceSpatial::AttachProjection(const char* spatial)
 {
   std::ostringstream script;
-  
+
   // Set the projection if available
-  if(this->Proj4String) 
+  if(this->Proj4String)
   {
     // Remove the new line at the end of the string
     int len = strlen(this->Proj4String);
@@ -270,6 +268,6 @@ void vtkRInterfaceSpatial::AttachProjection(const char* spatial)
     cout << script.str() << endl;
     this->EvalRscript(script.str().c_str(), true);
   }
-  
+
   return;
-} 
+}

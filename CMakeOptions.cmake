@@ -1,8 +1,9 @@
 #
 # Try to find VTK and include its settings (otherwise complain)
 #
-INCLUDE (${CMAKE_ROOT}/Modules/FindVTK.cmake)
+# INCLUDE (${CMAKE_ROOT}/Modules/FindVTK.cmake)
 # We need grass, so no option is defined
+
 INCLUDE (CMake/FindGRASS.cmake)
 INCLUDE (CMake/FindGEOS.cmake)
 INCLUDE (${CMAKE_ROOT}/Modules/FindGDAL.cmake)
@@ -33,8 +34,8 @@ MARK_AS_ADVANCED (USE_VTK_TEMPORAL_SUPPORT)
 
 IF (USE_VTK_FILE)
   # Standard CMake option for building libraries shared or static by default.
-  OPTION(BUILD_SHARED_LIBS 
-         "Build with shared libraries." 
+  OPTION(BUILD_SHARED_LIBS
+         "Build with shared libraries."
          ${VTK_BUILD_SHARED_LIBS})
   # Copy the CMake option to a setting with VTK_GRASS_BRIDGE_ prefix for use in
   # our project.  This name is used in vtkGRASSBridgeLibraryConfigure.h.in.
@@ -50,7 +51,7 @@ IF (USE_VTK_FILE)
        "Single output directory for building all executables.")
 
   MARK_AS_ADVANCED (
-    LIBRARY_OUTPUT_PATH 
+    LIBRARY_OUTPUT_PATH
     EXECUTABLE_OUTPUT_PATH
   )
 
@@ -71,6 +72,44 @@ IF (USE_VTK_FILE)
 # Python Wrapping
 #
 
+function(link_grass_bridge_library MY_LIBRARY_NAME )
+# A function that makes the linking much easier
+    MESSAGE(STATUS "MY_LIBRARY_NAME " ${MY_LIBRARY_NAME})
+    MESSAGE(STATUS "MY_SRCS " ${MY_SRCS})
+    MESSAGE(STATUS "MY_H " ${MY_H})
+
+    # Create the C++ library.
+    ADD_LIBRARY (${MY_LIBRARY_NAME} ${MY_SRCS}  ${MY_H})
+    TARGET_LINK_LIBRARIES(${MY_LIBRARY_NAME} ${VTK_LIBRARIES} ${GRASS_LIBRARIES})
+    INSTALL_FILES(/include .h ${MY_H})
+    INSTALL_TARGETS(/lib ${MY_LIBRARY_NAME})
+
+    # Create the Java library.
+    IF (VTK_WRAP_JAVA AND VTK_GRASS_BRIDGE_WRAP_JAVA)
+      VTK_WRAP_JAVA3 (${MY_LIBRARY_NAME}Java CommonJava_SRCS ${MY_SRCS})
+      ADD_LIBRARY (${MY_LIBRARY_NAME}Java SHARED ${CommonJava_SRCS})
+      FOREACH ( library ${VTK_LINK_LIBRARIES} )
+        TARGET_LINK_LIBRARIES ( ${MY_LIBRARY_NAME}Java ${library}Java )
+      ENDFOREACH ( library )
+
+      INSTALL_TARGETS(/lib ${MY_LIBRARY_NAME}Java)
+    ENDIF (VTK_WRAP_JAVA AND VTK_GRASS_BRIDGE_WRAP_JAVA)
+
+    # Create the Python library.
+    IF (VTK_WRAP_PYTHON AND VTK_GRASS_BRIDGE_WRAP_PYTHON)
+      VTK_WRAP_PYTHON3 (${MY_LIBRARY_NAME}Python MyPython_SRCS ${MY_SRCS})
+      ADD_LIBRARY (${MY_LIBRARY_NAME}PythonD ${MyPython_SRCS})
+      ADD_LIBRARY (${MY_LIBRARY_NAME}Python MODULE ${MY_LIBRARY_NAME}PythonInit.cxx)
+      FOREACH ( library ${VTK_LINK_LIBRARIES} )
+        TARGET_LINK_LIBRARIES ( ${MY_LIBRARY_NAME}PythonD ${library}PythonD )
+      ENDFOREACH ( library )
+      TARGET_LINK_LIBRARIES(${MY_LIBRARY_NAME}Python ${MY_LIBRARY_NAME}PythonD)
+
+      INSTALL_TARGETS(/lib ${MY_LIBRARY_NAME}PythonD ${MY_LIBRARY_NAME}Python)
+    ENDIF (VTK_WRAP_PYTHON AND VTK_GRASS_BRIDGE_WRAP_PYTHON)
+
+endfunction(link_grass_bridge_library)
+
 IF (VTK_WRAP_PYTHON)
 
   OPTION(VTK_GRASS_BRIDGE_WRAP_PYTHON
@@ -78,6 +117,8 @@ IF (VTK_WRAP_PYTHON)
          ON)
 
   IF (VTK_GRASS_BRIDGE_WRAP_PYTHON)
+    FIND_PACKAGE(PythonLibs REQUIRED)
+    MESSAGE(STATUS "PYTHON_LIBRARIES " ${PYTHON_LIBRARIES})
     INCLUDE(${VTK_CMAKE_DIR}/vtkWrapPython.cmake)
     IF (WIN32)
       IF (NOT BUILD_SHARED_LIBS)

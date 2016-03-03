@@ -26,7 +26,6 @@
 #include <vtkDataSetAttributes.h>
 #include <vtkTemporalDataSet.h>
 
-vtkCxxRevisionMacro(vtkRInterfaceSpaceTime, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkRInterfaceSpaceTime);
 
 //----------------------------------------------------------------------------
@@ -52,8 +51,8 @@ bool vtkRInterfaceSpaceTime::AssignVTKTemporalDataSetToRSTFDF(vtkTemporalDataSet
   std::ostringstream script;
 
   // Create the spatial object at the first time step
-  // and attach point data for each time step 
-  // It is assumed that the number of points and cells as 
+  // and attach point data for each time step
+  // It is assumed that the number of points and cells as
   // well as the number and names of the arrays in each time step
   // do not change.
   for (timestep = 0; timestep < temporalData->GetNumberOfTimeSteps(); timestep++) {
@@ -103,7 +102,7 @@ bool vtkRInterfaceSpaceTime::AssignVTKTemporalDataSetToRSTFDF(vtkTemporalDataSet
       return false;
     }
 
-    // Only point data is supported, use vtkCellDataToPointData 
+    // Only point data is supported, use vtkCellDataToPointData
     // to for conversion of cell data
     vtkDataSetAttributes *pointData = data->GetPointData();
 
@@ -119,39 +118,39 @@ bool vtkRInterfaceSpaceTime::AssignVTKTemporalDataSetToRSTFDF(vtkTemporalDataSet
     else
       dataFrameNames << "," << dataFrameName.str();
   }
-  
+
   if(topoCreated == false) {
     vtkErrorMacro("Unsupported data set type");
     return false;
   }
-  
+
   // Create the time steps
   this->AssignVTKDataArrayToRVariable(timesteps, "timeSteps");
-  
+
   // Create the time value vector for spacetime object
-  script << "time = xts(1:" << timesteps->GetNumberOfTuples() << ", as.POSIXct(\"" 
+  script << "time = xts(1:" << timesteps->GetNumberOfTuples() << ", as.POSIXct(\""
          << startDate << "\") + "<< "timeSteps)";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   // Connect the data frames of each time step
   script.str("");
   script << "bind_data = rbind(" << dataFrameNames.str().c_str() << ")";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   // Create the space time full data frame
   script.str(""); // Clear the script
   script << RVariable << " = STFDF(DataSet, time, bind_data)";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   // Remove obsolete data
   script.str(""); // Clear the script
-  script << "remove(DataSet, time, timeSteps, bind_data, " 
+  script << "remove(DataSet, time, timeSteps, bind_data, "
          << dataFrameNames.str().c_str() << ")";
   cout << script.str() << endl;
   this->EvalRscript(script.str().c_str(), true);
-  
+
   return true;
 }

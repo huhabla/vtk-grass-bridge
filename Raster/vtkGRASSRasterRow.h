@@ -42,7 +42,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSRasterRow : public vtkObjectGRASSEr
 {
 public:
   static  vtkGRASSRasterRow *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterRow, vtkObject);
+  vtkTypeMacro(vtkGRASSRasterRow, vtkObject);
 
   //!\brief Allocate a raster row of type DCELL, FCELL or CELL, removes previously allocated data
   //!\param cols The number of cols to allocate

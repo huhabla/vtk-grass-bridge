@@ -38,7 +38,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSModule : public vtkObjectGRASSError
 {
 public:
   static  vtkGRASSModule *New();
-  vtkTypeRevisionMacro(vtkGRASSModule,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSModule,vtkObjectGRASSErrorHandler);
 
   //!\brief Adds a keyword to the module description
   void AddKeyword(const char *keyword);

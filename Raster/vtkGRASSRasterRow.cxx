@@ -16,7 +16,6 @@
 #include "vtkGRASSRasterMapBase.h"
 #include <vtkObjectFactory.h>
 
-vtkCxxRevisionMacro(vtkGRASSRasterRow, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterRow);
 
 //----------------------------------------------------------------------------
@@ -43,21 +42,21 @@ vtkGRASSRasterRow::~vtkGRASSRasterRow()
 
 void vtkGRASSRasterRow::Reset()
 {
-	if(this->Allocated && this->UseExternalBuffer == false) {
-		TRY
-		if(this->CELLBuff) {
-			G_free(this->CELLBuff);
-		} else if(this->FCELLBuff) {
-			G_free(this->FCELLBuff);
-		} if(this->DCELLBuff) {
-			G_free(this->DCELLBuff);
-		}
-		CATCH_VOID
-	}
+    if(this->Allocated && this->UseExternalBuffer == false) {
+        TRY
+        if(this->CELLBuff) {
+            G_free(this->CELLBuff);
+        } else if(this->FCELLBuff) {
+            G_free(this->FCELLBuff);
+        } if(this->DCELLBuff) {
+            G_free(this->DCELLBuff);
+        }
+        CATCH_VOID
+    }
 
-	this->CELLBuff = NULL;
-	this->FCELLBuff = NULL;
-	this->DCELLBuff = NULL;
+    this->CELLBuff = NULL;
+    this->FCELLBuff = NULL;
+    this->DCELLBuff = NULL;
 
     this->NumberOfCols = 0;
     this->RowType = -1;
@@ -181,7 +180,7 @@ bool vtkGRASSRasterRow::SetBuffer(int cols, int rowType, void *buf)
     else if(rowType == DCELL_TYPE)
         this->DCELLBuff = (DCELL*)buf;
     else
-    	return false;
+        return false;
 
 
     this->NumberOfCols = cols;
@@ -203,11 +202,11 @@ bool vtkGRASSRasterRow::GetCELLValue(int col, vtkCELL* value)
         return false;
 
     if(this->RowType == CELL_TYPE)
-    	value->Value = (CELL)this->CELLBuff[col];
+        value->Value = (CELL)this->CELLBuff[col];
     else  if(this->RowType == DCELL_TYPE)
-    	value->Value = (CELL)this->DCELLBuff[col];
+        value->Value = (CELL)this->DCELLBuff[col];
     else  if(this->RowType == FCELL_TYPE)
-    	value->Value = (CELL)this->FCELLBuff[col];
+        value->Value = (CELL)this->FCELLBuff[col];
 
     return true;
 }
@@ -223,11 +222,11 @@ bool vtkGRASSRasterRow::GetFCELLValue(int col, vtkFCELL* value)
         return false;
 
     if(this->RowType == FCELL_TYPE)
-    	value->Value = (FCELL)this->FCELLBuff[col];
+        value->Value = (FCELL)this->FCELLBuff[col];
     else  if(this->RowType == DCELL_TYPE)
-    	value->Value = (FCELL)this->DCELLBuff[col];
+        value->Value = (FCELL)this->DCELLBuff[col];
     else  if(this->RowType == CELL_TYPE)
-    	value->Value = (FCELL)this->CELLBuff[col];
+        value->Value = (FCELL)this->CELLBuff[col];
 
 
     return true;
@@ -244,11 +243,11 @@ bool vtkGRASSRasterRow::GetDCELLValue(int col, vtkDCELL* value)
         return false;
 
     if(this->RowType == DCELL_TYPE)
-    	value->Value = (DCELL)this->DCELLBuff[col];
+        value->Value = (DCELL)this->DCELLBuff[col];
     else  if(this->RowType == FCELL_TYPE)
-    	value->Value = (DCELL)this->FCELLBuff[col];
+        value->Value = (DCELL)this->FCELLBuff[col];
     else  if(this->RowType == CELL_TYPE)
-    	value->Value = (DCELL)this->CELLBuff[col];
+        value->Value = (DCELL)this->CELLBuff[col];
 
     return true;
 }
@@ -265,11 +264,11 @@ bool vtkGRASSRasterRow::SetCELLValue(int col, vtkCELL* value)
         return false;
 
     if(this->RowType == CELL_TYPE)
-    	this->CELLBuff[col] = (CELL)value->Value;
+        this->CELLBuff[col] = (CELL)value->Value;
     else if(this->RowType == FCELL_TYPE)
-    	this->FCELLBuff[col] = (FCELL)value->Value;
+        this->FCELLBuff[col] = (FCELL)value->Value;
     else if(this->RowType == DCELL_TYPE)
-    	this->DCELLBuff[col] = (DCELL)value->Value;
+        this->DCELLBuff[col] = (DCELL)value->Value;
 
     return true;
 }
@@ -285,11 +284,11 @@ bool vtkGRASSRasterRow::SetFCELLValue(int col, vtkFCELL* value)
         return false;
 
     if(this->RowType == FCELL_TYPE)
-    	this->FCELLBuff[col] = (FCELL)value->Value;
+        this->FCELLBuff[col] = (FCELL)value->Value;
     else if(this->RowType == DCELL_TYPE)
-    	this->DCELLBuff[col] = (DCELL)value->Value;
+        this->DCELLBuff[col] = (DCELL)value->Value;
     else if(this->RowType == CELL_TYPE)
-    	this->CELLBuff[col] = (CELL)value->Value;
+        this->CELLBuff[col] = (CELL)value->Value;
 
     return true;
 }
@@ -305,11 +304,11 @@ bool vtkGRASSRasterRow::SetDCELLValue(int col, vtkDCELL* value)
         return false;
 
     if(this->RowType == DCELL_TYPE)
-    	this->DCELLBuff[col] = (DCELL)value->Value;
+        this->DCELLBuff[col] = (DCELL)value->Value;
     else if(this->RowType == FCELL_TYPE)
-    	this->FCELLBuff[col] = (FCELL)value->Value;
+        this->FCELLBuff[col] = (FCELL)value->Value;
     else if(this->RowType == CELL_TYPE)
-    	this->CELLBuff[col] = (CELL)value->Value;
+        this->CELLBuff[col] = (CELL)value->Value;
 
     return true;
 }

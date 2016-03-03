@@ -60,7 +60,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSOption : public vtkObjectGRASSError
 {
 public:
   static  vtkGRASSOption *New();
-  vtkTypeRevisionMacro(vtkGRASSOption,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSOption,vtkObjectGRASSErrorHandler);
 
   //BTX
   friend class vtkGRASSOptionFactory;

@@ -60,7 +60,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSMultiRasterPolyDataLineReader : public 
 {
 public:
   static vtkGRASSMultiRasterPolyDataLineReader* New();
-  vtkTypeRevisionMacro(vtkGRASSMultiRasterPolyDataLineReader,vtkPolyDataAlgorithm);
+  vtkTypeMacro(vtkGRASSMultiRasterPolyDataLineReader,vtkPolyDataAlgorithm);
   virtual void PrintSelf(ostream& os, vtkIndent indent);
 
   //!\brief Get the array name that replace the raster names in the cell data

@@ -21,7 +21,6 @@ extern "C" {
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSDatabaseInfo, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSDatabaseInfo);
 
 //----------------------------------------------------------------------------
@@ -66,7 +65,7 @@ bool vtkGRASSDatabaseInfo::Refresh(){
 
   char *buff = NULL;
   size_t n;
-  
+
   TRY
   this->AvailableMapSets->Initialize();
 
@@ -76,7 +75,7 @@ bool vtkGRASSDatabaseInfo::Refresh(){
   this->SetGisBasePath(G_gisbase());
   this->SetCurrentLocationPath(G_location_path());
   this->SetProjection(G_projection());
-  
+
   // TODO: Check if this works on windows too
   // Get the projection string
   FILE *out = popen("g.proj -jf", "r");
@@ -86,8 +85,8 @@ bool vtkGRASSDatabaseInfo::Refresh(){
   if(buff)
     this->SetProj4String(buff);
 
-  char ** mapsets = G_available_mapsets();
-  
+  char ** mapsets = G_get_available_mapsets();
+
   int count = 0;
   while(mapsets && mapsets[count])
   {

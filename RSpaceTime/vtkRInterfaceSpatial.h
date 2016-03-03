@@ -40,7 +40,7 @@ class VTK_GRASS_BRIDGE_RSPACETIME_EXPORT vtkRInterfaceSpatial : public vtkRInter
 {
 public:
   static  vtkRInterfaceSpatial *New();
-  vtkTypeRevisionMacro(vtkRInterfaceSpatial, vtkRInterface);
+  vtkTypeMacro(vtkRInterfaceSpatial, vtkRInterface);
   
   //!\brief Assign a vtkPointData object to R as SpatialPointsDataFrame specified in RVariable of the sp package
   //! Only Point coordinates and point data are assigned. Cells and cell data are ignored.

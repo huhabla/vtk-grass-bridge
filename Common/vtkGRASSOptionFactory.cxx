@@ -16,7 +16,6 @@
 #include <vtkObjectFactory.h>
 #include "vtkGRASSOption.h"
 
-vtkCxxRevisionMacro(vtkGRASSOptionFactory, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSOptionFactory);
 
 vtkGRASSOptionFactory::vtkGRASSOptionFactory() {

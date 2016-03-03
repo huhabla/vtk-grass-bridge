@@ -32,7 +32,7 @@
 class VTK_GRASS_BRIDGE_FILTERING_EXPORT vtkGRASSBridgeVoxelModeller : public vtkImageAlgorithm
 {
 public:
-  vtkTypeRevisionMacro(vtkGRASSBridgeVoxelModeller,vtkImageAlgorithm);
+  vtkTypeMacro(vtkGRASSBridgeVoxelModeller,vtkImageAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //!\brief  Construct an instance of vtkGRASSBridgeVoxelModeller with its sample dimensions

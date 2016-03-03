@@ -66,7 +66,7 @@ public:
     //ETX
 
     static vtkGRASSDbmiInterface *New();
-    vtkTypeRevisionMacro(vtkGRASSDbmiInterface, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSDbmiInterface, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
 

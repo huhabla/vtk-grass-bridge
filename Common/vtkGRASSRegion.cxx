@@ -16,7 +16,6 @@
 #include <vtkObjectFactory.h>
 #include "vtkGRASSDefines.h"
 
-vtkCxxRevisionMacro(vtkGRASSRegion, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRegion);
 
 //----------------------------------------------------------------------------
@@ -119,7 +118,7 @@ bool vtkGRASSRegion::ReadRegion(char *regionName) {
         return false;
     }
     TRY
-    G__get_window(&this->head, "windows", this->Name, mapset);
+    G_get_element_window(&this->head, "windows", this->Name, mapset);
     CATCH_BOOL
 
     this->CopyRegionFrom(&this->head);
@@ -136,7 +135,7 @@ bool vtkGRASSRegion::SaveRegion(char *regionName) {
 
     this->SetName(regionName);
     this->CopyRegionTo(&this->head);
-    
+
     if (this->Name == NULL)
     {
         G_snprintf(buff, 1024, "class: %s line: %i Please set the region name first",
@@ -159,7 +158,7 @@ bool vtkGRASSRegion::SaveRegion(char *regionName) {
 
 
     this->CopyRegionTo(&this->head);
-    if(G__put_window(&this->head, "windows", this->Name) != 1)
+    if(G_put_element_window(&this->head, "windows", this->Name) != 1)
     {
         G_snprintf(buff, 1024, "class: %s line: %i Unable to save the region",
                     this->GetClassName(), __LINE__);

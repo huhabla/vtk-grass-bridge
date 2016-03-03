@@ -30,7 +30,6 @@
 #include "vtkGRASSDefines.h"
 #include "vtkGRASSMessagingInterface.h"
 
-vtkCxxRevisionMacro(vtkGRASSMultiRasterPolyDataLineReader, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSMultiRasterPolyDataLineReader);
 
 //----------------------------------------------------------------------------

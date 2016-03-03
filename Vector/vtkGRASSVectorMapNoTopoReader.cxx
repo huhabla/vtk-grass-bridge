@@ -16,8 +16,6 @@
 #include "vtkGRASSVectorMapNoTopoReader.h"
 #include <vtkObjectFactory.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorMapNoTopoReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorMapNoTopoReader);
 
 //----------------------------------------------------------------------------

@@ -22,7 +22,6 @@ extern "C" {
 #include <string.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSModule, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSModule);
 
 

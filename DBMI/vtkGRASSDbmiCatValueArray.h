@@ -40,7 +40,7 @@ class VTK_GRASS_BRIDGE_DBMI_EXPORT vtkGRASSDbmiCatValueArray : public vtkObjectG
 public:
 
     static vtkGRASSDbmiCatValueArray *New();
-    vtkTypeRevisionMacro(vtkGRASSDbmiCatValueArray, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSDbmiCatValueArray, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
 

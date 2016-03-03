@@ -17,8 +17,6 @@
 #include <vtkObjectFactory.h>
 #include <vtkGRASSDefines.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSDbmiColumn, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSDbmiColumn);
 
 //----------------------------------------------------------------------------

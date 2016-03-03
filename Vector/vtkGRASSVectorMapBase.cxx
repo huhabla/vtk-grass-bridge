@@ -20,8 +20,6 @@
 #include <vtkGRASSVectorFeatureCats.h>
 #include <vtkGRASSDefines.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorMapBase, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorMapBase);
 
 //----------------------------------------------------------------------------
@@ -163,7 +161,7 @@ vtkGRASSVectorMapBase::GetTotalNumberOfPoints()
     VGB_CREATE(vtkGRASSVectorFeatureCats, cats);
 
     this->TotalNumberOfPoints = 0;
-    
+
     if (!setjmp(vgb_stack_buffer))
     {
         while (0 < this->ReadNextFeature(points, cats))

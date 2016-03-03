@@ -18,7 +18,6 @@
 #include "vtkGRASSDefines.h"
 #include <vtkStringArray.h>
 
-vtkCxxRevisionMacro(vtkGRASSOption, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSOption);
 
 

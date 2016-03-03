@@ -5,7 +5,9 @@
 PROJECT (VTK_GRASS_BRIDGE)
 
 # Minimale Version von cmake
-cmake_minimum_required(VERSION 2.4)
+cmake_minimum_required(VERSION 2.8.7)
+find_package(VTK 7.0 REQUIRED)
+
 if(COMMAND cmake_policy)
   cmake_policy(SET CMP0003 NEW)
 endif(COMMAND cmake_policy)
@@ -32,9 +34,9 @@ INCLUDE (${VTK_GRASS_BRIDGE_SOURCE_DIR}/CMakeOptions.cmake)
 IF (VTK_GRASS_BRIDGE_CAN_BUILD)
 
   #
-  # Here is where you can list the sub-directories holding your local 
-  # classes. Sorting classes by 'package' type like VTK does (Common, 
-  # Rendering, Filtering, Imaging, IO, etc.) is a good thing and prevents 
+  # Here is where you can list the sub-directories holding your local
+  # classes. Sorting classes by 'package' type like VTK does (Common,
+  # Rendering, Filtering, Imaging, IO, etc.) is a good thing and prevents
   # numerous dependencies problems.
   #
 
@@ -85,7 +87,7 @@ IF (VTK_GRASS_BRIDGE_CAN_BUILD)
   ENDIF (VTK_GRASS_BRIDGE_WRAP_PYTHON)
 
   CONFIGURE_FILE(
-    ${VTK_GRASS_BRIDGE_SOURCE_DIR}/vtkGRASSBridgeConfigure.h.in 
+    ${VTK_GRASS_BRIDGE_SOURCE_DIR}/vtkGRASSBridgeConfigure.h.in
     ${VTK_GRASS_BRIDGE_BINARY_DIR}/vtkGRASSBridgeConfigure.h
   )
 

@@ -31,7 +31,6 @@ extern "C"
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSRaster3dImageReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRaster3dImageReader);
 
 //----------------------------------------------------------------------------
@@ -129,7 +128,7 @@ vtkGRASSRaster3dImageReader::RequestInformation(
     this->DataSpacing[0] = this->Raster3dMap->GetRegion()->GetEastWestResolution();
     this->DataSpacing[1] = this->Raster3dMap->GetRegion()->GetNorthSouthResolution();
     this->DataSpacing[2] = this->Raster3dMap->GetRegion()->GetTopBottomResolution();
-    
+
     this->DataOrigin[0] = this->Raster3dMap->GetRegion()->GetWesternEdge() + this->Raster3dMap->GetRegion()->GetEastWestResolution()/2.0;
     this->DataOrigin[1] = this->Raster3dMap->GetRegion()->GetSouthernEdge() + this->Raster3dMap->GetRegion()->GetNorthSouthResolution()/2.0;
     this->DataOrigin[2] = this->Raster3dMap->GetRegion()->GetBottom() + this->Raster3dMap->GetRegion()->GetTopBottomResolution()/2.0;
@@ -169,7 +168,7 @@ vtkGRASSRaster3dImageReaderExecute(vtkGRASSRaster3dImageReader *self,
     {
         gm->Percent(count, outExt[5], 1);
         count++;
-        
+
         for (idxY = outExt[2]; !self->GetAbortExecute() && idxY <= outExt[3]; idxY++)
         {
             for (idxX = outExt[0]; idxX <= outExt[1]; idxX++)
@@ -180,17 +179,22 @@ vtkGRASSRaster3dImageReaderExecute(vtkGRASSRaster3dImageReader *self,
         }
         outPtr += outIncZ;
     }
-    
+
     gm->Delete();
 }
 
 //----------------------------------------------------------------------------
 
-void
-vtkGRASSRaster3dImageReader::ExecuteData(vtkDataObject *output)
+int
+vtkGRASSRaster3dImageReader::RequestData(vtkInformation*,
+                                         vtkInformationVector**,
+                                         vtkInformationVector* outputVector)
 {
+    // get the info objects
+    vtkInformation *outInfo = outputVector->GetInformationObject(0);
 
-    vtkImageData *data = this->AllocateOutputData(output);
+    vtkImageData *data = this->AllocateOutputData(outInfo->Get(vtkDataObject::DATA_OBJECT()),
+                                                  outInfo);
     int *outExt = data->GetExtent();
     void *outPtr = data->GetScalarPointerForExtent(outExt);
 

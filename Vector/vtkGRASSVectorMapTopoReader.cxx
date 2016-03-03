@@ -21,7 +21,6 @@
 #include <vtkIntArray.h>
 #include <vtkGRASSDefines.h>
 
-vtkCxxRevisionMacro(vtkGRASSVectorMapTopoReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorMapTopoReader);
 
 //----------------------------------------------------------------------------

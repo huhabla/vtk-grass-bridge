@@ -25,7 +25,7 @@
  * \author soerengebbert@googlemail.com
  * */
 #ifndef _vtkGRASSVectorMapTopoReader_h
-#define	_vtkGRASSVectorMapTopoReader_h
+#define _vtkGRASSVectorMapTopoReader_h
 
 #include "vtkGRASSVectorMapNoTopoReader.h"
 #include "vtkGRASSBridgeVectorWin32Header.h"
@@ -45,7 +45,7 @@ class vtkIntArray;
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorMapTopoReader : public vtkGRASSVectorMapNoTopoReader {
 public:
     static vtkGRASSVectorMapTopoReader *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorMapTopoReader, vtkGRASSVectorMapNoTopoReader);
+    vtkTypeMacro(vtkGRASSVectorMapTopoReader, vtkGRASSVectorMapNoTopoReader);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     /*! \brief Read the line at index of the vector map (only level 2)
@@ -164,7 +164,7 @@ public:
         TRY if (this->Open) {
         struct bound_box box;
         if(!Vect_get_area_box(&this->map, area, &box))
-            return 0; 
+            return 0;
         return Vect_point_in_area (x, y, &this->map, area, &box);
         } else return 0; CATCH_INT
     }
@@ -187,8 +187,8 @@ public:
 
        \return area perimeter
      */
-    double GetPerimeterOfArea(vtkGRASSVectorFeaturePoints *areapoints) {
-        TRY if (this->Open)return Vect_area_perimeter(areapoints->GetPointer());
+    double GetPerimeterOfArea(int area) {
+        TRY if (this->Open)return Vect_get_area_perimeter(&this->map, area);
         else return -1; CATCH_INT
     }
         //!\brief Returns area of area without areas of isles.
@@ -229,7 +229,7 @@ public:
         TRY if (this->Open)return Vect_find_line(&this->map, ux, uy, uz, type, maxdist, with_z, exclude);
         else return -1; CATCH_INT
     }
-    
+
     /*!
      * \brief Find the nearest area
 

@@ -25,7 +25,6 @@ extern "C"
 #include <setjmp.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSInit, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSInit);
 
 #ifdef threadLocal

@@ -33,7 +33,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSDatabaseInfo : public vtkObjectGRAS
 {
 public:
   static vtkGRASSDatabaseInfo *New();
-  vtkTypeRevisionMacro(vtkGRASSDatabaseInfo,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSDatabaseInfo,vtkObjectGRASSErrorHandler);
   void PrintSelf(ostream& os, vtkIndent indent);
   
   vtkGetStringMacro(CurrentLocationName);

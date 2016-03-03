@@ -41,7 +41,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSInit : public vtkObjectGRASSErrorHa
 {
 public:
   static  vtkGRASSInit *New();
-  vtkTypeRevisionMacro(vtkGRASSInit,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSInit,vtkObjectGRASSErrorHandler);
   
   //! \brief Exit if an error within grass occures -> in case G_fatal_error() was called.
   void ExitOnErrorOn();

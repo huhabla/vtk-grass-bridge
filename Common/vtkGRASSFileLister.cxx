@@ -24,7 +24,6 @@ extern "C" {
 #include <grass/gis.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSFileLister, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSFileLister);
 
 //----------------------------------------------------------------------------
@@ -73,7 +72,7 @@ bool vtkGRASSFileLister::Refresh(){
   //Check Path
 
   // List the conetent of the directory
-  mapArray = G__ls(path, &count);
+  mapArray = G_ls2(path, &count);
 
 
   for(i = 0; i < count; i++)
@@ -83,7 +82,7 @@ bool vtkGRASSFileLister::Refresh(){
   }
 
   G_free(mapArray);
-  
+
 
   return true;
 

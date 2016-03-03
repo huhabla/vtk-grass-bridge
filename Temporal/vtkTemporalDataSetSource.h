@@ -42,7 +42,7 @@
 class VTK_GRASS_BRIDGE_TEMPORAL_EXPORT vtkTemporalDataSetSource : public vtkTemporalDataSetAlgorithm
 {
 public:
-  vtkTypeRevisionMacro(vtkTemporalDataSetSource,vtkTemporalDataSetAlgorithm);
+  vtkTypeMacro(vtkTemporalDataSetSource,vtkTemporalDataSetAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
   static vtkTemporalDataSetSource *New();
 

@@ -21,7 +21,6 @@ extern "C"
 #include <string.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSHistory, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSHistory);
 
 //----------------------------------------------------------------------------
@@ -128,7 +127,7 @@ vtkGRASSHistory::WriteHistory(const char *rastername)
 
     this->SetRasterName(rastername);
     this->Is3d = false;
-    
+
     return true;
 }
 

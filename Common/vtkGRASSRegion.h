@@ -36,7 +36,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSRegion : public vtkObjectGRASSError
 {
 public:
   static vtkGRASSRegion *New();
-  vtkTypeRevisionMacro(vtkGRASSRegion,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSRegion,vtkObjectGRASSErrorHandler);
   void PrintSelf(ostream& os, vtkIndent indent);
   void DeepCopy(vtkGRASSRegion *region);
   

@@ -41,7 +41,7 @@ extern "C" {
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorFeatureCats : public vtkObjectGRASSErrorHandler {
 public:
     static vtkGRASSVectorFeatureCats *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorFeatureCats, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSVectorFeatureCats, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     /*!

@@ -15,6 +15,5 @@
 #include "vtkDCELL.h"
 #include <vtkObjectFactory.h>
 
-vtkCxxRevisionMacro(vtkDCELL, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkDCELL);
 

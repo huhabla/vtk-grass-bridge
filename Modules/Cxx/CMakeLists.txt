@@ -14,7 +14,7 @@ v.sample.rast.cxx
 
 # Create the executable C++ library.
 ADD_EXECUTABLE (v.sample.rast ${SRCS})
-TARGET_LINK_LIBRARIES(v.sample.rast vtkGRASSBridgeCommon vtkGRASSBridgeRaster vtkGRASSBridgeVector vtkCommon  ${GRASS_LIBRARIES})
+TARGET_LINK_LIBRARIES(v.sample.rast vtkGRASSBridgeCommon vtkGRASSBridgeDbmi vtkGRASSBridgeRaster vtkGRASSBridgeVector ${VTK_LIBRARIES}  ${GRASS_LIBRARIES})
 
 INSTALL_TARGETS(/bin v.sample.rast)
 

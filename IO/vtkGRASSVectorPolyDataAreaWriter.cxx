@@ -30,8 +30,6 @@
 #include <vtkInformationVector.h>
 #include <vtkInformation.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorPolyDataAreaWriter, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSVectorPolyDataAreaWriter);
 
 //----------------------------------------------------------------------------

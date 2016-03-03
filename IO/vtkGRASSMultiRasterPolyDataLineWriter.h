@@ -50,7 +50,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSMultiRasterPolyDataLineWriter : public 
 {
 public:
   static vtkGRASSMultiRasterPolyDataLineWriter* New();
-  vtkTypeRevisionMacro(vtkGRASSMultiRasterPolyDataLineWriter,vtkPolyDataAlgorithm);
+  vtkTypeMacro(vtkGRASSMultiRasterPolyDataLineWriter,vtkPolyDataAlgorithm);
   virtual void PrintSelf(ostream& os, vtkIndent indent);
 
   //!\brief Get the name of the generated raster maps

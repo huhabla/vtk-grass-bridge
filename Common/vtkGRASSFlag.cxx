@@ -17,8 +17,6 @@
 #include <vtkObjectFactory.h>
 #include "vtkGRASSDefines.h"
 
-
-vtkCxxRevisionMacro(vtkGRASSFlag, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSFlag);
 
 

@@ -21,7 +21,6 @@
 #include <vtkFloatArray.h>
 #include <vtkDoubleArray.h>
 
-vtkCxxRevisionMacro(vtkGRASSRaster3dMapReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRaster3dMapReader);
 
 //----------------------------------------------------------------------------

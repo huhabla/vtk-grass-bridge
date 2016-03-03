@@ -46,7 +46,7 @@ class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorMapBase : public vtkObjectGRA
 public:
 
     static vtkGRASSVectorMapBase *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorMapBase, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSVectorMapBase, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
 

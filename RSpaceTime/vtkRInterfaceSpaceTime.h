@@ -36,7 +36,7 @@ class VTK_GRASS_BRIDGE_RSPACETIME_EXPORT vtkRInterfaceSpaceTime : public vtkRInt
 {
 public:
   static  vtkRInterfaceSpaceTime *New();
-  vtkTypeRevisionMacro(vtkRInterfaceSpaceTime, vtkRInterface);
+  vtkTypeMacro(vtkRInterfaceSpaceTime, vtkRInterface);
   
   //! \brief Assign data arrays present in a dataset attribute to R using the array names as R variable names. Make sure correct and unique array names are used.
   virtual bool AssignVTKTemporalDataSetToRSTFDF(vtkTemporalDataSet *data, const char *RVariable, vtkDataArray *timesteps, const char *startDate);

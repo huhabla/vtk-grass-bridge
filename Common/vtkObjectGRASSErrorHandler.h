@@ -39,7 +39,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkObjectGRASSErrorHandler : public vtkObje
 {
 public:
   static  vtkObjectGRASSErrorHandler *New();
-  vtkTypeRevisionMacro(vtkObjectGRASSErrorHandler,vtkObject);
+  vtkTypeMacro(vtkObjectGRASSErrorHandler,vtkObject);
 
   vtkGetMacro(NumberOfErrors, int);
   vtkGetMacro(NumberOfWarnings, int);

@@ -35,7 +35,6 @@ extern "C" {
 #include <string.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSMultiRasterPolyDataLineWriter, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSMultiRasterPolyDataLineWriter);
 
 //----------------------------------------------------------------------------

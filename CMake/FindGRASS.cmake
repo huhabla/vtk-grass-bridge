@@ -8,48 +8,46 @@
 # GRASS_FOUND, If false, do not try to use GRASS.
 
 FIND_PATH(GRASS_INCLUDE_DIR grass/gis.h
-  /home/soeren/src/grass7.0/grass_trunk/dist.x86_64-unknown-linux-gnu/include
-  /home/soeren/src/grass7.0/grass_trunk/dist.i686-pc-linux-gnu/include
+  /home/soeren/grass/grass7_trunk/dist.x86_64-pc-linux-gnu/include
   /usr/local/include
   /usr/include
 )
 
-FIND_PATH(GRASS_LIBRARY_DIR grass_gis.7.0.svn
-  /home/soeren/src/grass7.0/grass_trunk/dist.x86_64-unknown-linux-gnu/lib
-  /home/soeren/src/grass7.0/grass_trunk/dist.i686-pc-linux-gnu/lib
+FIND_PATH(GRASS_LIBRARY_DIR grass_gis.7.1.svn
+  /home/soeren/grass/grass7_trunk/dist.x86_64-pc-linux-gnu/lib
   /usr/local/lib
   /usr/lib
 )
 
 IF(GRASS_LIBRARY_DIR)
-    FIND_LIBRARY(GRASS_GIS_LIBRARY grass_gis.7.0.svn
+    FIND_LIBRARY(GRASS_GIS_LIBRARY grass_gis.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_RASTER_LIBRARY grass_raster.7.0.svn
+    FIND_LIBRARY(GRASS_RASTER_LIBRARY grass_raster.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_VECTOR_LIBRARY grass_vector.7.0.svn
+    FIND_LIBRARY(GRASS_VECTOR_LIBRARY grass_vector.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_RASTER3D_LIBRARY grass_g3d.7.0.svn
+    FIND_LIBRARY(GRASS_RASTER3D_LIBRARY grass_g3d.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_GMATH_LIBRARY grass_gmath.7.0.svn
+    FIND_LIBRARY(GRASS_GMATH_LIBRARY grass_gmath.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_GPDE_LIBRARY grass_gpde.7.0.svn
+    FIND_LIBRARY(GRASS_GPDE_LIBRARY grass_gpde.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_DBMIBASE_LIBRARY grass_dbmibase.7.0.svn
+    FIND_LIBRARY(GRASS_DBMIBASE_LIBRARY grass_dbmibase.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_DBMIDRIVER_LIBRARY grass_dbmidriver.7.0.svn
+    FIND_LIBRARY(GRASS_DBMIDRIVER_LIBRARY grass_dbmidriver.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_DBMICLIENT_LIBRARY grass_dbmiclient.7.0.svn
+    FIND_LIBRARY(GRASS_DBMICLIENT_LIBRARY grass_dbmiclient.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
-    FIND_LIBRARY(GRASS_DATETIME_LIBRARY grass_datetime.7.0.svn
+    FIND_LIBRARY(GRASS_DATETIME_LIBRARY grass_datetime.7.1.svn
         ${GRASS_LIBRARY_DIR}
     )
 ENDIF(GRASS_LIBRARY_DIR)

@@ -40,7 +40,7 @@ class VTK_GRASS_BRIDGE_RASTER3D_EXPORT vtkGRASSRaster3dMapReader : public vtkGRA
 {
 public:
   static  vtkGRASSRaster3dMapReader *New();
-  vtkTypeRevisionMacro(vtkGRASSRaster3dMapReader,vtkGRASSRaster3dMapBase);
+  vtkTypeMacro(vtkGRASSRaster3dMapReader,vtkGRASSRaster3dMapBase);
 
   //! \brief Open an existing raster3d map for reading.
   //! \param name the name of an existing raster3d map

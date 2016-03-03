@@ -42,7 +42,7 @@ class vtkGRASSVectorBBox;
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorFeaturePoints : public vtkObjectGRASSErrorHandler {
 public:
     static vtkGRASSVectorFeaturePoints *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorFeaturePoints, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSVectorFeaturePoints, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     /*!

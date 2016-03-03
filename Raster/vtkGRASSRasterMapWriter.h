@@ -46,7 +46,7 @@ class VTK_GRASS_BRIDGE_RASTER_EXPORT vtkGRASSRasterMapWriter : public vtkGRASSRa
 {
 public:
   static  vtkGRASSRasterMapWriter *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterMapWriter,vtkGRASSRasterMapBase);
+  vtkTypeMacro(vtkGRASSRasterMapWriter,vtkGRASSRasterMapBase);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   virtual void SetMapTypeToCELL() {this->SetMapType(CELL_TYPE);}

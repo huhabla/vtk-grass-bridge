@@ -26,7 +26,6 @@ extern "C" {
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSRasterToImageReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterToImageReader);
 
 //----------------------------------------------------------------------------
@@ -155,7 +154,7 @@ void vtkGRASSRasterToImageReaderExecute(vtkGRASSRasterToImageReader *self,
     /* open raster map */
     fd = Rast_open_old(self->GetRasterName(), self->GetMapset());
     if (fd < 0)
-	    fprintf(stderr, "Unable to open raster map <%s>", self->GetRasterName());
+        fprintf(stderr, "Unable to open raster map <%s>", self->GetRasterName());
 
     out_type = Rast_get_map_type(fd);
     raster = Rast_allocate_buf(out_type);
@@ -185,8 +184,17 @@ void vtkGRASSRasterToImageReaderExecute(vtkGRASSRasterToImageReader *self,
 
 //----------------------------------------------------------------------------
 
-void vtkGRASSRasterToImageReader::ExecuteData(vtkDataObject *output) {
-    vtkImageData *data = this->AllocateOutputData(output);
+int
+vtkGRASSRasterToImageReader::RequestData(vtkInformation*,
+                                       vtkInformationVector**,
+                                       vtkInformationVector* outputVector)
+{
+    // get the info objects
+    vtkInformation *outInfo = outputVector->GetInformationObject(0);
+
+    vtkImageData *data = this->AllocateOutputData(outInfo->Get(vtkDataObject::DATA_OBJECT()),
+                                                  outInfo);
+
     int *outExt = data->GetExtent();
     void *outPtr = data->GetScalarPointerForExtent(outExt);
 
@@ -228,28 +236,28 @@ double vtkGRASSRasterToImageReader::GetRasterValueAsDouble(int MapType, void *pt
     double val = nullval;
 
     if (MapType == CELL_TYPE) {
-	if (Rast_is_null_value(ptr, MapType)) {
-	    val = nullval;
-	}
-	else {
-	    val = *(CELL *) ptr;
-	}
+    if (Rast_is_null_value(ptr, MapType)) {
+        val = nullval;
+    }
+    else {
+        val = *(CELL *) ptr;
+    }
     }
     if (MapType == FCELL_TYPE) {
-	if (Rast_is_null_value(ptr, MapType)) {
-	    val = nullval;
-	}
-	else {
-	    val = *(FCELL *) ptr;
-	}
+    if (Rast_is_null_value(ptr, MapType)) {
+        val = nullval;
+    }
+    else {
+        val = *(FCELL *) ptr;
+    }
     }
     if (MapType == DCELL_TYPE) {
-	if (Rast_is_null_value(ptr, MapType)) {
-	    val = nullval;
-	}
-	else {
-	    val = *(DCELL *) ptr;
-	}
+    if (Rast_is_null_value(ptr, MapType)) {
+        val = nullval;
+    }
+    else {
+        val = *(DCELL *) ptr;
+    }
     }
 
     return val;

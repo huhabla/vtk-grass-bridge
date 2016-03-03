@@ -37,7 +37,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSFileLister : public vtkObjectGRASSE
 {
 public:
   static vtkGRASSFileLister *New();
-  vtkTypeRevisionMacro(vtkGRASSFileLister,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSFileLister,vtkObjectGRASSErrorHandler);
   virtual void PrintSelf(ostream& os, vtkIndent indent);
   
   vtkGetStringMacro(MapsetName);

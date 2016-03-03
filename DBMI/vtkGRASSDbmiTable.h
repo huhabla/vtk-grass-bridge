@@ -42,7 +42,7 @@ public:
     //ETX
 
     static vtkGRASSDbmiTable *New();
-    vtkTypeRevisionMacro(vtkGRASSDbmiTable, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSDbmiTable, vtkObjectGRASSErrorHandler);
     virtual void PrintSelf(ostream& os, vtkIndent indent);
 
     //!\brief Return the number of columns of this table

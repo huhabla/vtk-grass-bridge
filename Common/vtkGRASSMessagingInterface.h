@@ -36,7 +36,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSMessagingInterface : public vtkObje
 {
 public:
   static vtkGRASSMessagingInterface *New();
-  vtkTypeRevisionMacro(vtkGRASSMessagingInterface,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSMessagingInterface,vtkObjectGRASSErrorHandler);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   static void Message(char *message){G_message("%s",message);}

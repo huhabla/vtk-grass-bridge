@@ -19,7 +19,6 @@
 #include "vtkGRASSDbmiCatValueArray.h"
 #include "vtkGRASSDbmiTable.h"
 
-vtkCxxRevisionMacro(vtkGRASSDbmiInterface, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSDbmiInterface);
 
 //----------------------------------------------------------------------------

@@ -32,7 +32,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSRaster3dMapLister : public vtkGRASS
 {
 public:
   static vtkGRASSRaster3dMapLister *New();
-  vtkTypeRevisionMacro(vtkGRASSRaster3dMapLister,vtkGRASSFileLister);
+  vtkTypeMacro(vtkGRASSRaster3dMapLister,vtkGRASSFileLister);
 
 protected:
   vtkGRASSRaster3dMapLister();

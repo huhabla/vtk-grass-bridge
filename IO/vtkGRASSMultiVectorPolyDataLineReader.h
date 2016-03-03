@@ -59,7 +59,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSMultiVectorPolyDataLineReader : public 
 {
 public:
   static vtkGRASSMultiVectorPolyDataLineReader* New();
-  vtkTypeRevisionMacro(vtkGRASSMultiVectorPolyDataLineReader,vtkGRASSVectorPolyDataReader);
+  vtkTypeMacro(vtkGRASSMultiVectorPolyDataLineReader,vtkGRASSVectorPolyDataReader);
   virtual void PrintSelf(ostream& os, vtkIndent indent);
 
   //!\brief The output will only contain vertices

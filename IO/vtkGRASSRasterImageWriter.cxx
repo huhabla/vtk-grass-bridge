@@ -30,7 +30,6 @@ extern "C"
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSRasterImageWriter, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterImageWriter);
 
 //----------------------------------------------------------------------------

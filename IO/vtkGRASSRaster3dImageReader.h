@@ -1,4 +1,4 @@
-/* 
+/*
  * Program: vtkGRASSBridge
  * COPYRIGHT: (C) 2009 by Soeren Gebbert, soerengebbert@googlemail.com
  *
@@ -46,13 +46,13 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSRaster3dImageReader : public vtkImageAl
 {
 public:
   static vtkGRASSRaster3dImageReader *New();
-  vtkTypeRevisionMacro(vtkGRASSRaster3dImageReader,vtkImageAlgorithm);
+  vtkTypeMacro(vtkGRASSRaster3dImageReader,vtkImageAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Get the data type of pixels in the imported data.
   //! As a convenience, the OutputScalarType is set to the same value.
   vtkGetMacro(DataScalarType, int);
-  const char *GetDataScalarTypeAsString() { 
+  const char *GetDataScalarTypeAsString() {
     return vtkImageScalarTypeNameMacro(this->DataScalarType);
   }
 
@@ -81,7 +81,7 @@ public:
   //! to enable the NullValue, set the this->UseGRASSNulleValueOff()
   vtkSetMacro(NullValue, double);
   //! \brief Null value which should replace the default grass null value for CELL, FCELL andDCELL maps
-  //! to enable the NullValue, set the this->UseGRASSNulleValueOff() 
+  //! to enable the NullValue, set the this->UseGRASSNulleValueOff()
   vtkGetMacro(NullValue, double);
 
   //! \brief Read the GRASS raster image values as cell data rather then point data which is the default.
@@ -105,7 +105,7 @@ protected:
   int DataScalarType;
   int RegionUsage;
   double NullValue;
-  
+
   int AsCellData;
 
   int DataExtent[6];
@@ -121,7 +121,11 @@ protected:
   virtual int RequestInformation (vtkInformation*,
                                   vtkInformationVector**,
                                   vtkInformationVector*);
-  virtual void ExecuteData(vtkDataObject *data);
+
+  virtual int RequestData(vtkInformation*,
+                          vtkInformationVector**,
+                          vtkInformationVector*);
+
 
 private:
   vtkGRASSRaster3dImageReader(const vtkGRASSRaster3dImageReader&);  // Not implemented.

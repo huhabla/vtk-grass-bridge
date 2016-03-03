@@ -22,7 +22,6 @@ extern "C" {
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSRasterMapLister, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterMapLister);
 
 //----------------------------------------------------------------------------

@@ -10,10 +10,10 @@
  This software is distributed WITHOUT ANY WARRANTY; without even
  the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
  PURPOSE.  See the above copyright notice for more information.
-     
+
   Modified for better polydata support by Soeren Gebbert
   soerengebbert (at) googlemail (dot) com
-     
+
  =========================================================================*/
 #include "vtkGRASSBridgeVoxelModeller.h"
 
@@ -30,27 +30,24 @@
 #include <vtkPointLocator.h>
 #include <math.h>
 
-vtkCxxRevisionMacro(vtkGRASSBridgeVoxelModeller, "$Revision: 1.58 $")
-;
-vtkStandardNewMacro(vtkGRASSBridgeVoxelModeller)
-;
+vtkStandardNewMacro(vtkGRASSBridgeVoxelModeller);
 
 // Construct an instance of vtkGRASSBridgeVoxelModeller with its sample dimensions
 // set to (50,50,50), and so that the model bounds are
-// automatically computed from its input. The maximum distance is set to 
+// automatically computed from its input. The maximum distance is set to
 // examine the whole grid. This could be made much faster, and probably
 // will be in the future.
 vtkGRASSBridgeVoxelModeller::vtkGRASSBridgeVoxelModeller()
 {
   this->MaximumDistance = 1.0;
-  
+
   this->ModelBounds[0] = 0.0;
   this->ModelBounds[1] = 0.0;
   this->ModelBounds[2] = 0.0;
   this->ModelBounds[3] = 0.0;
   this->ModelBounds[4] = 0.0;
   this->ModelBounds[5] = 0.0;
-  
+
   this->SampleDimensions[0] = 50;
   this->SampleDimensions[1] = 50;
   this->SampleDimensions[2] = 50;
@@ -87,13 +84,13 @@ int vtkGRASSBridgeVoxelModeller::RequestInformation(vtkInformation * vtkNotUsed(
 {
   // get the info objects
   vtkInformation* outInfo = outputVector->GetInformationObject(0);
-  
+
   int i;
   double ar[3], origin[3];
-  
+
   outInfo->Set(vtkStreamingDemandDrivenPipeline::WHOLE_EXTENT(), 0, this->SampleDimensions[0]-1, 0,
       this->SampleDimensions[1]-1, 0, this->SampleDimensions[2]-1);
-  
+
   for (i=0; i < 3; i++)
   {
     origin[i] = this->ModelBounds[2*i];
@@ -108,7 +105,7 @@ int vtkGRASSBridgeVoxelModeller::RequestInformation(vtkInformation * vtkNotUsed(
   }
   outInfo->Set(vtkDataObject::ORIGIN(), origin, 3);
   outInfo->Set(vtkDataObject::SPACING(), ar, 3);
-  
+
   vtkDataObject::SetPointDataActiveScalarInfo(outInfo, VTK_UNSIGNED_CHAR, 1);
   return 1;
 }
@@ -120,14 +117,14 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
   // get the input
   vtkInformation* inInfo = inputVector[0]->GetInformationObject(0);
   vtkDataSet *input = vtkDataSet::SafeDownCast(inInfo->Get(vtkDataObject::DATA_OBJECT()));
-  
+
   // get the output
   vtkInformation *outInfo = outputVector->GetInformationObject(0);
   vtkImageData *output = vtkImageData::SafeDownCast(outInfo->Get(vtkDataObject::DATA_OBJECT()));
-  
+
   // We need to allocate our own scalars since we are overriding
   // the superclasses "Execute()" method.
-  output->SetExtent(output->GetWholeExtent());
+  output->SetExtent(output->GetExtent());
   //output->AllocateScalars();
 
   vtkIdType cellNum, i;
@@ -144,23 +141,23 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
   double voxelHalfWidth[3], origin[3], spacing[3];
   vtkIdList *cellIds = vtkIdList::New();
   vtkUnsignedCharArray *newScalars = vtkUnsignedCharArray::New();
-  
+
   // Neares Neighbour search
   vtkPointLocator *locator = vtkPointLocator::New();
   locator->SetDataSet(input);
   locator->AutomaticOn();
-  
+
   //
   // Initialize self; create output objects
   //
   vtkDebugMacro(<< "Executing Voxel model");
-  
+
   numPts = this->SampleDimensions[0] * this->SampleDimensions[1]*this->SampleDimensions[2];
   newScalars->SetName("Intersection");
   newScalars->SetNumberOfTuples(numPts);
   newScalars->SetNumberOfComponents(1);
   newScalars->FillComponent(0, 0);
-  
+
   maxDistance = this->ComputeModelBounds(origin, spacing);
   outInfo->Set(vtkDataObject::SPACING(), spacing, 3);
   outInfo->Set(vtkDataObject::ORIGIN(), origin, 3);
@@ -172,7 +169,7 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
     voxelHalfWidth[i] = spacing[i] / 2.0;
   }
   //
-  // Traverse all cells; 
+  // Traverse all cells;
   //
 
   // compute dimensional bounds in data set
@@ -189,7 +186,7 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
       max[i] = this->SampleDimensions[i] - 1;
     }
   }
-  
+
   jkFactor = this->SampleDimensions[0]*this->SampleDimensions[1];
   for (k = min[2]; k <= max[2]; k++)
   {
@@ -203,7 +200,7 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
         if (!(newScalars->GetValue(idx)))
         {
           x[0] = spacing[0] * i + origin[0];
-          
+
           pId = locator->FindClosestPoint(x);
           input->GetPointCells(pId, cellIds);
 
@@ -224,15 +221,13 @@ int vtkGRASSBridgeVoxelModeller::RequestData(vtkInformation* vtkNotUsed( request
     }
   }
   delete [] weights;
-  
+
   output->GetPointData()->SetScalars(newScalars);
-  output->SetScalarTypeToUnsignedChar();
-  
   locator->FreeSearchStructure();
   locator->Delete();
   newScalars->Delete();
   cellIds->Delete();
-  
+
   return 1;
 }
 
@@ -242,7 +237,7 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
 {
   double *bounds, maxDist;
   int i, adjustBounds=0;
-  
+
   // compute model bounds if not set previously
   if (this->ModelBounds[0] >= this->ModelBounds[1]||this->ModelBounds[2] >= this->ModelBounds[3]
       ||this->ModelBounds[4] >= this->ModelBounds[5])
@@ -256,7 +251,7 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
   {
     bounds = this->ModelBounds;
   }
-  
+
   for (maxDist=0.0, i=0; i<3; i++)
   {
     if ( (bounds[2*i+1] - bounds[2*i]) > maxDist )
@@ -265,7 +260,7 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
     }
   }
   maxDist *= this->MaximumDistance;
-  
+
   // adjust bounds so model fits strictly inside (only if not set previously)
   if (adjustBounds )
   {
@@ -275,7 +270,7 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
       this->ModelBounds[2*i+1] = bounds[2*i+1] + maxDist;
     }
   }
-  
+
   // Set volume origin and data spacing
   for (i=0; i<3; i++)
   {
@@ -283,7 +278,7 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
     spacing[i] = (this->ModelBounds[2*i+1] - this->ModelBounds[2*i])
         /(this->SampleDimensions[i] - 1);
   }
-  
+
   return maxDist;
 }
 
@@ -292,11 +287,11 @@ double vtkGRASSBridgeVoxelModeller::ComputeModelBounds(double origin[3], double 
 void vtkGRASSBridgeVoxelModeller::SetSampleDimensions(int i, int j, int k)
 {
   int dim[3];
-  
+
   dim[0] = i;
   dim[1] = j;
   dim[2] = k;
-  
+
   this->SetSampleDimensions(dim);
 }
 
@@ -304,10 +299,10 @@ void vtkGRASSBridgeVoxelModeller::SetSampleDimensions(int i, int j, int k)
 void vtkGRASSBridgeVoxelModeller::SetSampleDimensions(int dim[3])
 {
   int dataDim, i;
-  
+
   vtkDebugMacro(<< " setting SampleDimensions to (" << dim[0] << "," << dim[1]
       << "," << dim[2] << ")");
-  
+
   if (dim[0] != this->SampleDimensions[0]||dim[1] != this->SampleDimensions[1]||dim[2]
       != this->SampleDimensions[2])
   {
@@ -328,7 +323,7 @@ void vtkGRASSBridgeVoxelModeller::SetSampleDimensions(int dim[3])
       vtkErrorMacro(<<"Sample dimensions must define a volume!");
       return;
     }
-    
+
     for (i=0; i<3; i++)
     {
       this->SampleDimensions[i] = dim[i];
@@ -348,7 +343,7 @@ int vtkGRASSBridgeVoxelModeller::FillInputPortInformation(int vtkNotUsed(port), 
 void vtkGRASSBridgeVoxelModeller::PrintSelf(ostream& os, vtkIndent indent)
 {
   this->Superclass::PrintSelf(os, indent);
-  
+
   os << indent << "Maximum Distance: "<< this->MaximumDistance<< "\n";
   os << indent << "Sample Dimensions: ("<< this->SampleDimensions[0]<< ", "
       << this->SampleDimensions[1]<< ", "<< this->SampleDimensions[2]<< ")\n";

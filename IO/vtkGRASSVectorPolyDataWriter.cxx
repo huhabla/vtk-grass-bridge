@@ -43,7 +43,6 @@
 #include <string>
 #include <sstream>
 
-vtkCxxRevisionMacro(vtkGRASSVectorPolyDataWriter, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSVectorPolyDataWriter);
 
 //----------------------------------------------------------------------------
@@ -100,7 +99,7 @@ vtkGRASSVectorPolyDataWriter::RequestData(
     int i, j;
     double point[3], pcoords[3];
     bool hasAreas = false;
-    
+
     if (this->VectorName == NULL)
     {
         vtkErrorMacro( << "Vector name not set.");
@@ -108,7 +107,7 @@ vtkGRASSVectorPolyDataWriter::RequestData(
     }
 
     VGB_CREATE(vtkGRASSVectorMapWriter, writer);
-    
+
     if (!writer->OpenMap(this->VectorName, 1))
     {
         vtkErrorMacro( << "Unable to open vector map " << this->VectorName);
@@ -177,7 +176,7 @@ vtkGRASSVectorPolyDataWriter::RequestData(
                 // We write only the centroid, areas a treated separately
                 writeFeature = false;
                 hasAreas = true;
-                
+
                 double *weights = new double [cell->GetNumberOfPoints()];
                 int subId;
 
@@ -216,19 +215,19 @@ vtkGRASSVectorPolyDataWriter::RequestData(
     if(hasAreas) {
         // Clean the data, remove redundant points
         VGB_CREATE(vtkCleanPolyData, cleaner);
-        // Extract edges of polygons 
+        // Extract edges of polygons
         VGB_CREATE(vtkExtractEdges, edges);
 
-        cleaner->SetInput(input);
+        cleaner->SetInputData(input);
         cleaner->ConvertLinesToPointsOn();
         cleaner->ConvertPolysToLinesOn();
         cleaner->Update();
 
-        edges->SetInput(cleaner->GetOutput());
+        edges->SetInputConnection(cleaner->GetOutputPort());
         edges->Update();
 
         vtkPolyData *areas = edges->GetOutput();
-        
+
         // We write the data per cell
         for (i = 0; i < areas->GetNumberOfCells(); i++)
         {
@@ -243,10 +242,10 @@ vtkGRASSVectorPolyDataWriter::RequestData(
                 {
                     points->GetPoint(j, point);
                     feature->AppendPoint(point[0], point[1], point[2]);
-                } 
-                
+                }
+
                 feature->SetFeatureTypeToBoundary();
-                
+
                 if (1 > writer->WriteFeature(feature, cats))
                 {
                     vtkErrorMacro( << "Error writing boundary feature to vector map");
@@ -258,7 +257,7 @@ vtkGRASSVectorPolyDataWriter::RequestData(
 
     // Now add any cell data to the vector database table
     this->AddCellDataToVectorMap(input->GetCellData(), categories, writer);
-    
+
     if (this->BuildTopo > 0)
         writer->CloseMap(true);
     else
@@ -284,7 +283,7 @@ void vtkGRASSVectorPolyDataWriter::AddCellDataToVectorMap(vtkCellData *celldata,
     // Grass expects the name cat as category array
     categories->SetName("cat");
     categories->GetRange(range);
-    
+
     if(range[1] < 1.0)
         return;
 
@@ -311,7 +310,7 @@ void vtkGRASSVectorPolyDataWriter::AddCellDataToVectorMap(vtkCellData *celldata,
                             << " components");
             continue;
         }
-        
+
         if(!cd->HasArray(array->GetName()))
             cd->AddArray(array);
     }
@@ -351,7 +350,7 @@ void vtkGRASSVectorPolyDataWriter::AddCellDataToVectorMap(vtkCellData *celldata,
 
     // Create the table
     db->ConnectDBCreateTable(table);
-    
+
     db->BeginTransaction();
 
     numcells = categories->GetNumberOfTuples();

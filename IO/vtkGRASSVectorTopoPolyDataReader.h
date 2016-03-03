@@ -53,7 +53,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSVectorTopoPolyDataReader : public vtkGR
 {
 public:
   static vtkGRASSVectorTopoPolyDataReader* New();
-  vtkTypeRevisionMacro(vtkGRASSVectorTopoPolyDataReader,vtkGRASSVectorPolyDataReader);
+  vtkTypeMacro(vtkGRASSVectorTopoPolyDataReader,vtkGRASSVectorPolyDataReader);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Return the chosen feature type. Default is points

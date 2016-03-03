@@ -40,7 +40,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSVectorPolyDataWriter : public vtkPolyDa
 {
 public:
   static vtkGRASSVectorPolyDataWriter* New();
-  vtkTypeRevisionMacro(vtkGRASSVectorPolyDataWriter,vtkPolyDataAlgorithm);
+  vtkTypeMacro(vtkGRASSVectorPolyDataWriter,vtkPolyDataAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Set the name of vector map

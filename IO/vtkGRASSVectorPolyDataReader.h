@@ -44,7 +44,7 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSVectorPolyDataReader : public vtkPolyDa
 {
 public:
   static vtkGRASSVectorPolyDataReader* New();
-  vtkTypeRevisionMacro(vtkGRASSVectorPolyDataReader,vtkPolyDataAlgorithm);
+  vtkTypeMacro(vtkGRASSVectorPolyDataReader,vtkPolyDataAlgorithm);
   virtual void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Set the name of vector map
@@ -98,8 +98,8 @@ protected:
   vtkSetStringMacro(Mapset);
 
   virtual int RequestData(vtkInformation*,
-                  vtkInformationVector**,
-                  vtkInformationVector*);
+                          vtkInformationVector**,
+                          vtkInformationVector*);
 
   //!\brief Read selected double and integer database columns as celldata arrays
   //! The selection is based on column names located in the internal vtkStringArray ColumnNames

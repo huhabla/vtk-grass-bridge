@@ -34,14 +34,14 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSRasterToImageReader : public vtkImageAl
 {
 public:
   static vtkGRASSRasterToImageReader *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterToImageReader,vtkImageAlgorithm);
+  vtkTypeMacro(vtkGRASSRasterToImageReader,vtkImageAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   // Description:
   // Set/Get the data type of pixels in the imported data.
   // As a convenience, the OutputScalarType is set to the same value.
   vtkGetMacro(DataScalarType, int);
-  const char *GetDataScalarTypeAsString() { 
+  const char *GetDataScalarTypeAsString() {
     return vtkImageScalarTypeNameMacro(this->DataScalarType); }
 
   vtkSetStringMacro(RasterName);
@@ -87,7 +87,10 @@ protected:
   virtual int RequestInformation (vtkInformation*,
                                   vtkInformationVector**,
                                   vtkInformationVector*);
-  virtual void ExecuteData(vtkDataObject *data);
+
+  virtual int RequestData(vtkInformation*,
+                          vtkInformationVector**,
+                          vtkInformationVector*);
 
 private:
   vtkGRASSRasterToImageReader(const vtkGRASSRasterToImageReader&);  // Not implemented.

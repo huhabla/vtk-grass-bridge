@@ -37,7 +37,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkCELL : public vtkObject
 {
 public:
   static  vtkCELL *New();
-  vtkTypeRevisionMacro(vtkCELL,vtkObject);
+  vtkTypeMacro(vtkCELL,vtkObject);
 
   //!\brief The internal CELL value is cast to int and returned
   double GetValueAsInt(){return (int)this->Value;}

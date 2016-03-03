@@ -19,8 +19,6 @@
 #include <vtkObjectFactory.h>
 #include <vtkCellType.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorFeaturePoints, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorFeaturePoints);
 
 //----------------------------------------------------------------------------

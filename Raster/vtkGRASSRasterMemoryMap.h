@@ -43,7 +43,7 @@ class VTK_GRASS_BRIDGE_COMMON_EXPORT vtkGRASSRasterMemoryMap : public vtkObjectG
 {
 public:
   static  vtkGRASSRasterMemoryMap *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterMemoryMap, vtkObject);
+  vtkTypeMacro(vtkGRASSRasterMemoryMap, vtkObject);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //!\brief Allocate a raster memory map of type DCELL, FCELL or CELL,

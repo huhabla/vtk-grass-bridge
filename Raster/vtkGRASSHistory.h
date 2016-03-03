@@ -39,7 +39,7 @@ class VTK_GRASS_BRIDGE_RASTER_EXPORT vtkGRASSHistory : public vtkObjectGRASSErro
 {
 public:
   static vtkGRASSHistory *New();
-  vtkTypeRevisionMacro(vtkGRASSHistory,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSHistory,vtkObjectGRASSErrorHandler);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Read the history of a raster map

@@ -23,7 +23,6 @@
 #include <vtkFloatArray.h>
 #include <vtkDoubleArray.h>
 
-vtkCxxRevisionMacro(vtkGRASSRasterMapWriter, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterMapWriter);
 
 //----------------------------------------------------------------------------
@@ -65,9 +64,9 @@ vtkGRASSRasterMapWriter::OpenMap(const char *name)
     else if (this->Open == true)
     {
         // If a new name is given, the open map will be closed
-    	G_snprintf(buff, 1024, "class: %s line: %i Raster map %s is already open.",
+        G_snprintf(buff, 1024, "class: %s line: %i Raster map %s is already open.",
         this->GetClassName(), __LINE__, this->RasterName);
-    	this->InsertNextError(buff);
+        this->InsertNextError(buff);
         if(!this->CloseMap())
             return false;
     }
@@ -101,7 +100,7 @@ vtkGRASSRasterMapWriter::OpenMap(const char *name)
     {
         this->InsertNextError(vgb_error_message);
         this->Open = false;
-        return false;	
+        return false;
     }
 
     if (error == 1)
@@ -172,7 +171,7 @@ vtkGRASSRasterMapWriter::PutNextRow(vtkDataArray *data)
 
     TRY Rast_put_row(this->Map, this->RasterBuff, this->MapType);
     CATCH_BOOL
-    
+
     this->Empty = false;
 
     return true;
@@ -259,9 +258,9 @@ vtkGRASSRasterMapWriter::WriteMemoryMap(vtkGRASSRasterMemoryMap *mmap)
     }
 
     for(i = 0; i < this->GetNumberOfRows(); i++) {
-    	mmap->GetRow(i, row);
-		TRY Rast_put_row(this->Map, row->GetBuffer(), this->MapType);
-		CATCH_BOOL
+        mmap->GetRow(i, row);
+        TRY Rast_put_row(this->Map, row->GetBuffer(), this->MapType);
+        CATCH_BOOL
     }
 
     this->Empty = false;
@@ -274,8 +273,8 @@ vtkGRASSRasterMapWriter::WriteMemoryMap(vtkGRASSRasterMemoryMap *mmap)
 bool
 vtkGRASSRasterMapWriter::CloseMap()
 {
-	char buff[1024];
-	// We close them only when its not empty
+    char buff[1024];
+    // We close them only when its not empty
     if (this->Empty)
     {
         G_snprintf(buff, 1024, "class: %s line: %i Map is empty, unable to close.",

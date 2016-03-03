@@ -31,7 +31,6 @@ extern "C"
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSRasterImageReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterImageReader);
 
 //----------------------------------------------------------------------------
@@ -63,7 +62,7 @@ vtkGRASSRasterImageReader::vtkGRASSRasterImageReader()
 
     this->NullValue = this->RasterMap->GetNullValue();
     this->UseNullValue = 1;
-    
+
     this->AsCellDataOff();
 }
 
@@ -81,8 +80,7 @@ vtkGRASSRasterImageReader::~vtkGRASSRasterImageReader()
 //----------------------------------------------------------------------------
 
 int
-vtkGRASSRasterImageReader::RequestInformation(
-                                              vtkInformation * vtkNotUsed(request),
+vtkGRASSRasterImageReader::RequestInformation(vtkInformation * vtkNotUsed(request),
                                               vtkInformationVector ** vtkNotUsed(inputVector),
                                               vtkInformationVector *outputVector)
 {
@@ -150,7 +148,7 @@ vtkGRASSRasterImageReader::RequestInformation(
 
     this->DataSpacing[0] = this->RasterMap->GetRegion()->GetEastWestResolution();
     this->DataSpacing[1] = this->RasterMap->GetRegion()->GetNorthSouthResolution();
-    
+
     this->DataOrigin[0] = this->RasterMap->GetRegion()->GetWesternEdge();
     this->DataOrigin[1] = this->RasterMap->GetRegion()->GetSouthernEdge();
     this->DataOrigin[2] = 0;
@@ -193,7 +191,6 @@ vtkGRASSRasterImageReaderExecute(vtkGRASSRasterImageReader *self,
     // Get increments to march through data
     data->GetContinuousIncrements(outExt, outIncX, outIncY, outIncZ);
 
-
     // Loop through output pixel
     for (idxZ = outExt[4]; idxZ <= outExt[5]; idxZ++)
     {
@@ -215,32 +212,36 @@ vtkGRASSRasterImageReaderExecute(vtkGRASSRasterImageReader *self,
 
 //----------------------------------------------------------------------------
 
-void
-vtkGRASSRasterImageReader::ExecuteData(vtkDataObject *output)
+int
+vtkGRASSRasterImageReader::RequestData(vtkInformation*,
+                                       vtkInformationVector**,
+                                       vtkInformationVector* outputVector)
 {
+    // get the info objects
+    vtkInformation *outInfo = outputVector->GetInformationObject(0);
 
-    vtkImageData *data = this->AllocateOutputData(output);
+    vtkImageData *data = this->AllocateOutputData(outInfo->Get(vtkDataObject::DATA_OBJECT()),
+                                                  outInfo);
     int *outExt = data->GetExtent();
     void *outPtr = NULL;
-    
-    
+
     if(this->AsCellData)
     {
       int row, col, rowcount;
-      
+
       vtkDataArray *cellscalars;
       cellscalars = vtkDataArray::CreateDataArray(this->GetDataScalarType());
       cellscalars->SetNumberOfComponents(1);
       cellscalars->SetNumberOfTuples((this->DataExtent[1] + 0)*(this->DataExtent[3] + 0));
       cellscalars->SetName(this->RasterName);
-      
+
       vtkDataArray *pointscalars;
       pointscalars = vtkDataArray::CreateDataArray(this->GetDataScalarType());
       pointscalars->SetNumberOfComponents(1);
       pointscalars->SetNumberOfTuples((this->DataExtent[1] + 1)*(this->DataExtent[3] + 1));
       pointscalars->SetName(this->RasterName);
       pointscalars->FillComponent(0, 0.0);
-      
+
       vtkGRASSRasterMapReader *map = this->GetRasterMap();
       vtkDataArray *rasterrow;
 
@@ -250,19 +251,19 @@ vtkGRASSRasterImageReader::ExecuteData(vtkDataObject *output)
       for(row = 0; row < this->DataExtent[3]; row ++)
       {
         rasterrow = map->GetRow(row);
-                
+
         for(col = 0; col < this->DataExtent[1]; col++)
         {
           cellscalars->SetTuple1(row*this->DataExtent[1] + col, rasterrow->GetTuple1(col));
           //pointscalars->SetTuple1(row*(this->DataExtent[1] + 1) + col + 1, rasterrow->GetTuple1(col));
         }
       }
-            
+
       data->GetCellData()->SetScalars(cellscalars);
       data->GetPointData()->SetScalars(pointscalars);
-      cellscalars->Delete(); 
+      cellscalars->Delete();
       pointscalars->Delete();
-      
+
     } else {
       outPtr = data->GetScalarPointerForExtent(outExt);
 

@@ -1,4 +1,4 @@
-/* 
+/*
  * Program: vtkGRASSBridge
  * COPYRIGHT: (C) 2009 by Soeren Gebbert, soerengebbert@googlemail.com
  *
@@ -46,13 +46,13 @@ class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSRasterImageReader : public vtkImageAlgo
 {
 public:
   static vtkGRASSRasterImageReader *New();
-  vtkTypeRevisionMacro(vtkGRASSRasterImageReader,vtkImageAlgorithm);
+  vtkTypeMacro(vtkGRASSRasterImageReader,vtkImageAlgorithm);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   //! \brief Get the data type of pixels in the imported data.
   //! As a convenience, the OutputScalarType is set to the same value.
   vtkGetMacro(DataScalarType, int);
-  const char *GetDataScalarTypeAsString() { 
+  const char *GetDataScalarTypeAsString() {
     return vtkImageScalarTypeNameMacro(this->DataScalarType);
   }
 
@@ -81,7 +81,7 @@ public:
   //! to enable the NullValue, set this->UseGRASSNulleValueOff()
   vtkSetMacro(NullValue, double);
   //! \brief Null value which should replace the default grass null value for CELL, FCELL and DCELL maps
-  //! to enable the NullValue, set this->UseGRASSNulleValueOff() 
+  //! to enable the NullValue, set this->UseGRASSNulleValueOff()
   vtkGetMacro(NullValue, double);
 
 
@@ -100,7 +100,7 @@ public:
     void ReadMapAsFloat(){this->SetMapTypeConversion(2);}
     //! \brief Create a vtkImagedata with scalar type double and convert the raster map type
     void ReadMapAsDouble(){this->SetMapTypeConversion(3);}
-    
+
     //! \brief Read the GRASS raster image values as cell data rather then point data which is the default.
     //! Is set true the layout of the image will change (number of raster pixels are now number of cells)
     vtkSetMacro(AsCellData, int);
@@ -120,7 +120,7 @@ protected:
   int RegionUsage;
   double NullValue;
   int UseNullValue;
-  
+
   int AsCellData;
 
   int MapTypeConversion; // 0 == same as map, 1 == int, 2 == float, 3 == double
@@ -135,7 +135,7 @@ protected:
   vtkSetMacro(RegionUsage, int);
 
   vtkSetMacro(MapTypeConversion, int);
-  
+
   vtkSetMacro(DataScalarType,int);
   void SetDataScalarTypeToDouble(){this->SetDataScalarType(VTK_DOUBLE);}
   void SetDataScalarTypeToFloat(){this->SetDataScalarType(VTK_FLOAT);}
@@ -144,7 +144,10 @@ protected:
   virtual int RequestInformation (vtkInformation*,
                                   vtkInformationVector**,
                                   vtkInformationVector*);
-  virtual void ExecuteData(vtkDataObject *data);
+
+  virtual int RequestData(vtkInformation*,
+                          vtkInformationVector**,
+                          vtkInformationVector*);
 
 private:
   vtkGRASSRasterImageReader(const vtkGRASSRasterImageReader&);  // Not implemented.

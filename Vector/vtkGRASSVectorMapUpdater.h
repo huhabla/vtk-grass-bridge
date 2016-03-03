@@ -30,7 +30,7 @@
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorMapUpdater : public vtkGRASSVectorMapWriter {
 public:
     static vtkGRASSVectorMapUpdater *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorMapUpdater, vtkGRASSVectorMapWriter);
+    vtkTypeMacro(vtkGRASSVectorMapUpdater, vtkGRASSVectorMapWriter);
 
 
     /*!\brief Open a new vector map to write

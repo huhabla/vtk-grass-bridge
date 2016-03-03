@@ -16,8 +16,6 @@
 #include "vtkGRASSVectorBBox.h"
 #include <vtkObjectFactory.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorBBox, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorBBox);
 
 //------------------------------------------------------------------------------

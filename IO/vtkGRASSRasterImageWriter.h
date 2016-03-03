@@ -42,7 +42,7 @@
 class VTK_GRASS_BRIDGE_IO_EXPORT vtkGRASSRasterImageWriter : public vtkSimpleImageToImageFilter {
 public:
     static vtkGRASSRasterImageWriter *New();
-    vtkTypeRevisionMacro(vtkGRASSRasterImageWriter, vtkSimpleImageToImageFilter);
+    vtkTypeMacro(vtkGRASSRasterImageWriter, vtkSimpleImageToImageFilter);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     vtkSetStringMacro(RasterName);

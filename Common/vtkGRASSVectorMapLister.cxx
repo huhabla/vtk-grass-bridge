@@ -23,7 +23,6 @@ extern "C" {
 #include <math.h>
 }
 
-vtkCxxRevisionMacro(vtkGRASSVectorMapLister, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorMapLister);
 
 //----------------------------------------------------------------------------

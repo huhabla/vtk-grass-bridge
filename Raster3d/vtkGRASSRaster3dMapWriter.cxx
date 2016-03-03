@@ -21,7 +21,6 @@
 #include <vtkFloatArray.h>
 #include <vtkDoubleArray.h>
 
-vtkCxxRevisionMacro(vtkGRASSRaster3dMapWriter, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRaster3dMapWriter);
 
 //----------------------------------------------------------------------------
@@ -53,7 +52,7 @@ vtkGRASSRaster3dMapWriter::OpenMap(char *name) {
 
     this->SetRaster3dName(name);
     this->Mapset = G_store(G_mapset());
-    
+
     Rast3d_init_defaults();
 
     // Set the region for the 3d map based on the region settings
@@ -97,7 +96,7 @@ vtkGRASSRaster3dMapWriter::PutValue(int x, int y, int z, double value)
 {
     if(this->Open)
         return Rast3d_put_double(this->Map, x, y, z, value);
-            
+
     return 1;
 }
 

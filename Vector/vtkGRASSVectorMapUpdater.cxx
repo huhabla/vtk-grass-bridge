@@ -17,8 +17,6 @@
 #include <vtkObjectFactory.h>
 #include <vtkGRASSDefines.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorMapUpdater, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSVectorMapUpdater);
 
 //----------------------------------------------------------------------------
@@ -38,7 +36,7 @@ vtkGRASSVectorMapUpdater::RewriteFeature(int feature, int type, vtkGRASSVectorFe
         TRY return Vect_rewrite_line(&this->map, feature, type, points->GetPointer(), cats->GetPointer());
         CATCH_INT
     }
-	return 0;
+    return 0;
 }
 
 //----------------------------------------------------------------------------
@@ -51,7 +49,7 @@ vtkGRASSVectorMapUpdater::RestoreFeature(int line, int offset)
         TRY return Vect_restore_line(&this->map, line, (off_t) offset);
         CATCH_INT
     }
-	return 0;
+    return 0;
 }
 
 //----------------------------------------------------------------------------

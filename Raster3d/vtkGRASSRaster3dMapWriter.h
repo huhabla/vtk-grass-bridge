@@ -44,7 +44,7 @@ class VTK_GRASS_BRIDGE_RASTER3D_EXPORT vtkGRASSRaster3dMapWriter : public vtkGRA
 {
 public:
   static  vtkGRASSRaster3dMapWriter *New();
-  vtkTypeRevisionMacro(vtkGRASSRaster3dMapWriter,vtkGRASSRaster3dMapBase);
+  vtkTypeMacro(vtkGRASSRaster3dMapWriter,vtkGRASSRaster3dMapBase);
 
   virtual void SetMapTypeToFCELL() {this->SetMapType(FCELL_TYPE);}
   virtual void SetMapTypeToDCELL() {this->SetMapType(DCELL_TYPE);}

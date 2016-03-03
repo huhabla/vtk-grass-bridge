@@ -44,7 +44,7 @@ class VTK_GRASS_BRIDGE_RASTER3D_EXPORT vtkGRASSRaster3dMapBase : public vtkObjec
 {
 public:
   static  vtkGRASSRaster3dMapBase *New();
-  vtkTypeRevisionMacro(vtkGRASSRaster3dMapBase,vtkObjectGRASSErrorHandler);
+  vtkTypeMacro(vtkGRASSRaster3dMapBase,vtkObjectGRASSErrorHandler);
   void PrintSelf(ostream& os, vtkIndent indent);
 
   vtkGetStringMacro(Raster3dName);

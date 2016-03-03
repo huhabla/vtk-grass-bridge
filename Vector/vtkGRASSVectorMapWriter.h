@@ -33,7 +33,7 @@
 class VTK_GRASS_BRIDGE_VECTOR_EXPORT vtkGRASSVectorMapWriter : public vtkGRASSVectorMapTopoReader {
 public:
     static vtkGRASSVectorMapWriter *New();
-    vtkTypeRevisionMacro(vtkGRASSVectorMapWriter, vtkGRASSVectorMapTopoReader);
+    vtkTypeMacro(vtkGRASSVectorMapWriter, vtkGRASSVectorMapTopoReader);
 
 
     /*!\brief Open a new vector map to write with 3d z-coordinate support

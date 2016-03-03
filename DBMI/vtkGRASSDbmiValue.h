@@ -43,7 +43,7 @@ public:
     //ETX
 
     static vtkGRASSDbmiValue *New();
-    vtkTypeRevisionMacro(vtkGRASSDbmiValue, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSDbmiValue, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     //!\brief Return the double value

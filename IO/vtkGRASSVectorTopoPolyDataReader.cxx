@@ -31,7 +31,6 @@
 #include <vtkPointData.h>
 #include "vtkGRASSDefines.h"
 
-vtkCxxRevisionMacro(vtkGRASSVectorTopoPolyDataReader, "$Revision: 1.1 $");
 vtkStandardNewMacro(vtkGRASSVectorTopoPolyDataReader);
 
 //----------------------------------------------------------------------------

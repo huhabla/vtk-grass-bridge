@@ -43,7 +43,7 @@ public:
     //ETX
 
     static vtkGRASSDbmiColumn *New();
-    vtkTypeRevisionMacro(vtkGRASSDbmiColumn, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSDbmiColumn, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     //! \brief Reset the column and fill with default values

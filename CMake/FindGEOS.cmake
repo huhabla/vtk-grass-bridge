@@ -21,26 +21,18 @@ FIND_PATH(GEOS_INCLUDE_DIR geos.h
      include/GEOS
      include
   PATHS
-      ~/Library/Frameworks/geos.framework/Headers
-      /Library/Frameworks/geos.framework/Headers
-      /sw # Fink
-      /opt/local # DarwinPorts
-      /opt/csw # Blastwave
-      /opt
+      /usr/
 )
 
 IF(UNIX)
-    # Use geos-config to obtain the library version 
+    # Use geos-config to obtain the library version
     FIND_PROGRAM(GEOS_CONFIG geos-config
         HINTS
           $ENV{GEOS_DIR}
           $ENV{GEOS_ROOT}
         PATH_SUFFIXES bin
         PATHS
-            /sw # Fink
-            /opt/local # DarwinPorts
-            /opt/csw # Blastwave
-            /opt
+            /usr/
     )
 
     if(GEOS_CONFIG)
@@ -48,19 +40,15 @@ IF(UNIX)
     endif()
 endif()
 
-FIND_LIBRARY(GEOS_LIBRARY 
-  NAMES ${_geos_lib} geos 
+FIND_LIBRARY(GEOS_LIBRARY
+  NAMES ${_geos_lib} geos
   HINTS
      $ENV{GEOS_DIR}
      $ENV{GEOS_ROOT}
      ${_geos_libpath}
   PATH_SUFFIXES lib64 lib
   PATHS
-    /sw
-    /opt/local
-    /opt/csw
-    /opt
-    /usr/freeware
+    /usr/
 )
 
 include(FindPackageHandleStandardArgs)

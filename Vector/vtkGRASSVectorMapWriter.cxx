@@ -18,8 +18,6 @@
 #include "vtkGRASSDbmiTable.h"
 #include <vtkObjectFactory.h>
 
-
-vtkCxxRevisionMacro(vtkGRASSVectorMapWriter, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSVectorMapWriter);
 
 //----------------------------------------------------------------------------
@@ -97,7 +95,7 @@ vtkGRASSVectorMapWriter::OpenMap(const char *name, int with_z)
     }
 
     this->Open = true;
-    
+
     // Create the Dbmi interface for database operations
     if(this->DbmiInterface == NULL)
         this->DbmiInterface = vtkGRASSDbmiInterface::New();

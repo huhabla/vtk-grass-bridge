@@ -26,7 +26,6 @@
 #include "vtkFCELL.h"
 #include <vtkGRASSDefines.h>
 
-vtkCxxRevisionMacro(vtkGRASSRasterMapBase, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterMapBase);
 
 //----------------------------------------------------------------------------
@@ -193,7 +192,7 @@ vtkGRASSRasterMapBase::CloseMap()
         G_free(this->NullBuff);
         this->NullBuff = (char*) NULL;
     }
-    
+
     // Cleaning up the raster buffer for reuse
     if (this->RasterBuff) {
         G_free(this->RasterBuff);
@@ -223,7 +222,7 @@ bool vtkGRASSRasterMapBase::GetSampleValue(double north, double east, vtkDCELL *
     }
 
     value->Value = Rast_get_sample(this->Map, this->Region->GetPointer(), NULL, north, east, 0, type);
-    
+
     return !value->IsNull();
 }
 
@@ -238,12 +237,12 @@ bool vtkGRASSRasterMapBase::GetNearestSampleValue(double north, double east, vtk
 
 bool vtkGRASSRasterMapBase::GetBilinearSampleValue(double north, double east, vtkDCELL *value)
 {
-    return this->GetSampleValue(north, east, value, INTERP_LINEAR);
+    return this->GetSampleValue(north, east, value, INTERP_BILINEAR);
 }
 
 //----------------------------------------------------------------------------
 
 bool vtkGRASSRasterMapBase::GetBicubicSampleValue(double north, double east, vtkDCELL *value)
 {
-    return this->GetSampleValue(north, east, value, INTERP_CUBIC);
+    return this->GetSampleValue(north, east, value, INTERP_BICUBIC);
 }

@@ -23,7 +23,6 @@
 #include "vtkGRASSHistory.h"
 #include "vtkGRASSRasterRow.h"
 
-vtkCxxRevisionMacro(vtkGRASSRasterMapReader, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRasterMapReader);
 
 //----------------------------------------------------------------------------
@@ -62,7 +61,7 @@ vtkGRASSRasterMapReader::OpenMap(const char *name)
     }
 
     this->SetMapset(mapset);
-    
+
     if (this->RegionUsage == VTK_GRASS_REGION_RASTER)
     {
         struct Cell_head head;

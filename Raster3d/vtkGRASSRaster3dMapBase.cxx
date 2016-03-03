@@ -25,7 +25,6 @@
 #include "vtkGRASSHistory.h"
 #include <vtkGRASSDefines.h>
 
-vtkCxxRevisionMacro(vtkGRASSRaster3dMapBase, "$Revision: 1.18 $");
 vtkStandardNewMacro(vtkGRASSRaster3dMapBase);
 
 //----------------------------------------------------------------------------
@@ -148,7 +147,7 @@ vtkGRASSRaster3dMapBase::GetValue(int x, int y, int z, vtkDCELL *value)
 {
     if(!this->Open)
         return false;
-            
+
     value->Value = (DCELL)Rast3d_get_double(this->Map, x, y, z);
 
     return true;
@@ -161,7 +160,7 @@ vtkGRASSRaster3dMapBase::GetValue(double north, double east, double top, vtkDCEL
 {
     if(!this->Open)
         return false;
-    
+
     Rast3d_get_region_value(this->Map, north, east, top, &(value->Value), DCELL_TYPE);
 
     return true;

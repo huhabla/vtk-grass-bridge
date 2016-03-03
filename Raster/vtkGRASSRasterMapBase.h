@@ -49,7 +49,7 @@ class vtkCharArray;
 class VTK_GRASS_BRIDGE_RASTER_EXPORT vtkGRASSRasterMapBase : public vtkObjectGRASSErrorHandler {
 public:
     static vtkGRASSRasterMapBase *New();
-    vtkTypeRevisionMacro(vtkGRASSRasterMapBase, vtkObjectGRASSErrorHandler);
+    vtkTypeMacro(vtkGRASSRasterMapBase, vtkObjectGRASSErrorHandler);
     void PrintSelf(ostream& os, vtkIndent indent);
 
     vtkGetStringMacro(RasterName);
